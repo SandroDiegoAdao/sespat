@@ -24,7 +24,7 @@ export default function InvoiceDetailsPage() {
   return (
     <>
       <Helmet>
-        <title> Invoice: View | SESPAT</title>
+        <title> Pedidos | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>

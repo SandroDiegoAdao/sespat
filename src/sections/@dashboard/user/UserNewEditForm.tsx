@@ -141,7 +141,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
               </Label>
             )}
 
-            <Box sx={{ mb: 5 }}>
+            <Box sx={{ mb: 3 }}>
               <RHFUploadAvatar
                 name="foto"
                 maxSize={3145728}
@@ -184,20 +184,26 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
-            <Box
-              rowGap={3}
-              columnGap={2}
-              display="grid"
-              gridTemplateColumns={{
-                xs: 'repeat(1, 1fr)',
-                sm: 'repeat(2, 1fr)',
-              }}
-            >
-              <RHFTextField name="name" label="Full Name" />
-              <RHFTextField name="email" label="Email Address" />
-              <RHFTextField name="phoneNumber" label="Phone Number" />
+            <Stack spacing={2}>
+              <Typography variant="overline">Pessoal</Typography>
+              <Box
+                rowGap={3}
+                columnGap={2}
+                display="grid"
+                gridTemplateColumns={{
+                  xs: 'repeat(1, 1fr)',
+                  sm: 'repeat(2, 1fr)',
+                }}
+              >
+                <RHFTextField name="name" label="Nome" />
+                <RHFTextField name="email" label="Sobrenome" />
+              </Box>
 
-              <RHFSelect native name="country" label="Country" placeholder="Country">
+              <Typography variant="overline">Profissional</Typography>
+
+              <RHFTextField name="phoneNumber" label="E-mail" />
+
+              <RHFSelect native name="country" label="Unidade" placeholder="Unidade">
                 <option value="" />
                 {countries.map((country) => (
                   <option key={country.code} value={country.label}>
@@ -206,13 +212,33 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                 ))}
               </RHFSelect>
 
-              <RHFTextField name="state" label="State/Region" />
-              <RHFTextField name="city" label="City" />
-              <RHFTextField name="address" label="Address" />
-              <RHFTextField name="zipCode" label="Zip/Code" />
-              <RHFTextField name="company" label="Company" />
-              <RHFTextField name="role" label="Role" />
-            </Box>
+              <Box
+                rowGap={3}
+                columnGap={2}
+                display="grid"
+                gridTemplateColumns={{
+                  xs: 'repeat(1, 1fr)',
+                  sm: 'repeat(2, 1fr)',
+                }}
+              >
+                <RHFSelect native name="country" label="Cargo" placeholder="Cargo">
+                  <option value="" />
+                  {countries.map((country) => (
+                    <option key={country.code} value={country.label}>
+                      {country.label}
+                    </option>
+                  ))}
+                </RHFSelect>
+                <RHFSelect native name="country" label="Supervisor" placeholder="Supervisor">
+                  <option value="" />
+                  {countries.map((country) => (
+                    <option key={country.code} value={country.label}>
+                      {country.label}
+                    </option>
+                  ))}
+                </RHFSelect>
+              </Box>
+            </Stack>
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>

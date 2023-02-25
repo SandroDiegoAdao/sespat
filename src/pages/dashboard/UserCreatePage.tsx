@@ -17,22 +17,22 @@ export default function UserCreatePage() {
   return (
     <>
       <Helmet>
-        <title> User: Create a new user | SESPAT</title>
+        <title>Novo Usuário | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Create a new user"
+          heading="Novo Usuário"
           links={[
             {
               name: 'Dashboard',
               href: PATH_DASHBOARD.root,
             },
             {
-              name: 'User',
+              name: 'Usuários',
               href: PATH_DASHBOARD.user.list,
             },
-            { name: 'New user' },
+            { name: 'Novo Usuário' },
           ]}
         />
         <UserNewEditForm />

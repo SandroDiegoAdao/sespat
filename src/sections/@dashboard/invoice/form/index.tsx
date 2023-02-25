@@ -44,8 +44,11 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }: Props) {
   const [loadingSend, setLoadingSend] = useState(false);
 
   const NewUserSchema = Yup.object().shape({
-    invoiceTo: Yup.mixed().required('Invoice to is required'),
-    dueDate: Yup.date().min(Yup.ref('createDate'), 'Due date must be later than create date'),
+    invoiceTo: Yup.mixed().required('O centro de custo é obrigatório'),
+    dueDate: Yup.date().min(
+      Yup.ref('createDate'),
+      'A data de vencimento deve ser maior que a data de emissão'
+    ),
   });
 
   const defaultValues = useMemo(

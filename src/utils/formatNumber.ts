@@ -1,6 +1,5 @@
+import { replace } from 'lodash';
 import numeral from 'numeral';
-
-// ----------------------------------------------------------------------
 
 type InputValue = string | number | null;
 
@@ -8,10 +7,24 @@ export function fNumber(number: InputValue) {
   return numeral(number).format();
 }
 
-export function fCurrency(number: InputValue) {
-  const format = number ? numeral(number).format('$0,0.00') : '';
-
-  return result(format, '.00');
+export function fCurrency(
+  number: string | number,
+  isBrazilianCurrency: boolean = true,
+  prefix: boolean = true
+) {
+  const displayPrefix = prefix ? 'R$ ' : '';
+  return isBrazilianCurrency
+    ? replace(
+        parseFloat(String(number)).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }),
+        displayPrefix
+      )
+    : parseFloat(String(number)).toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
 }
 
 export function fPercent(number: InputValue) {

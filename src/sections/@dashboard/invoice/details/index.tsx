@@ -1,4 +1,3 @@
-// @mui
 import { styled } from '@mui/material/styles';
 import {
   Box,
@@ -13,16 +12,12 @@ import {
   Typography,
   TableContainer,
 } from '@mui/material';
-// utils
 import { fDate } from '../../../../utils/formatTime';
 import { fCurrency } from '../../../../utils/formatNumber';
-// _mock_
 import { IInvoice } from '../../../../@types/invoice';
-// components
 import Label from '../../../../components/label';
 import Image from '../../../../components/image';
 import Scrollbar from '../../../../components/scrollbar';
-//
 import InvoiceToolbar from './InvoiceToolbar';
 
 // ----------------------------------------------------------------------
@@ -45,17 +40,8 @@ export default function InvoiceDetails({ invoice }: Props) {
     return null;
   }
 
-  const {
-    items,
-    status,
-    dueDate,
-    invoiceTo,
-    createDate,
-    totalPrice,
-    invoiceFrom,
-    invoiceNumber,
-    subTotalPrice,
-  } = invoice;
+  const { items, status, dueDate, invoiceTo, createDate, totalPrice, invoiceFrom, invoiceNumber } =
+    invoice;
 
   return (
     <>
@@ -64,7 +50,7 @@ export default function InvoiceDetails({ invoice }: Props) {
       <Card sx={{ pt: 5, px: 5 }}>
         <Grid container>
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
-            <Image disabledEffect alt="logo" src="/logo/logo_full.svg" sx={{ maxWidth: 120 }} />
+            <Image disabledEffect alt="logo" src="/logo/logo.svg" sx={{ maxWidth: 60 }} />
           </Grid>
 
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
@@ -150,7 +136,7 @@ export default function InvoiceDetails({ invoice }: Props) {
               <TableBody>
                 {items.map((row, index) => (
                   <TableRow
-                    key={index}
+                    key={row.title}
                     sx={{
                       borderBottom: (theme) => `solid 1px ${theme.palette.divider}`,
                     }}
@@ -180,7 +166,6 @@ export default function InvoiceDetails({ invoice }: Props) {
 
                   <TableCell align="right" width={120} sx={{ typography: 'body1' }}>
                     <Box sx={{ mt: 2 }} />
-                    {fCurrency(subTotalPrice)}
                   </TableCell>
                 </StyledRowResult>
 
@@ -206,14 +191,11 @@ export default function InvoiceDetails({ invoice }: Props) {
           <Grid item xs={12} md={9} sx={{ py: 3 }}>
             <Typography variant="subtitle2">NOTAS</Typography>
 
-            <Typography variant="body2">
-              Nós apreciamos seus negócios. Se você precisar adicionar IVA ou notas extras,
-              avise-nos!
-            </Typography>
+            <Typography variant="body2">Este é um resumo do seu pedido.</Typography>
           </Grid>
 
           <Grid item xs={12} md={3} sx={{ py: 3, textAlign: 'right' }}>
-            <Typography variant="subtitle2">Problemas ou dúvida?</Typography>
+            <Typography variant="subtitle2">Problemas ou dúvidas?</Typography>
 
             <Typography variant="body2">support@sespat.com.br</Typography>
           </Grid>

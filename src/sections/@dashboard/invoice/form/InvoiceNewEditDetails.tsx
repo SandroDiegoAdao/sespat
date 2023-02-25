@@ -15,11 +15,11 @@ import { RHFSelect, RHFTextField } from '../../../../components/hook-form';
 // ----------------------------------------------------------------------
 
 const SERVICE_OPTIONS = [
-  { id: 1, name: 'full stack development', price: 90.99 },
-  { id: 2, name: 'backend development', price: 80.99 },
-  { id: 3, name: 'ui design', price: 70.99 },
-  { id: 4, name: 'ui/ux design', price: 60.99 },
-  { id: 5, name: 'front end development', price: 40.99 },
+  { id: 1, name: 'Caneta Azul', price: 1.0 },
+  { id: 2, name: 'Caneta Preta', price: 1.5 },
+  { id: 3, name: 'Papel A4', price: 0.5 },
+  { id: 4, name: 'Canetão p/ quadro branco', price: 4.99 },
+  { id: 5, name: 'Clipes', price: 0.2 },
 ];
 
 // ----------------------------------------------------------------------
@@ -112,26 +112,10 @@ export default function InvoiceNewEditDetails() {
         {fields.map((item, index) => (
           <Stack key={item.id} alignItems="flex-end" spacing={1.5}>
             <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ width: 1 }}>
-              <RHFTextField
-                size="small"
-                name={`items[${index}].title`}
-                label="Título"
-                InputLabelProps={{ shrink: true }}
-              />
-
-              <RHFTextField
-                size="small"
-                name={`items[${index}].description`}
-                label="Descrição"
-                InputLabelProps={{ shrink: true }}
-              />
-
               <RHFSelect
                 name={`items[${index}].service`}
-                size="small"
                 label="Produto"
                 InputLabelProps={{ shrink: true }}
-                sx={{ maxWidth: { md: 160 } }}
               >
                 <MenuItem
                   value=""
@@ -155,45 +139,41 @@ export default function InvoiceNewEditDetails() {
               </RHFSelect>
 
               <RHFTextField
-                size="small"
                 type="number"
                 name={`items[${index}].quantity`}
                 label="Quantidade"
                 placeholder="0"
                 onChange={(event) => handleChangeQuantity(event, index)}
                 InputLabelProps={{ shrink: true }}
-                sx={{ maxWidth: { md: 96 } }}
+                sx={{ maxWidth: { md: 150 } }}
               />
 
               <RHFTextField
-                size="small"
                 type="number"
                 name={`items[${index}].price`}
                 label="Preço"
                 placeholder="0"
                 onChange={(event) => handleChangePrice(event, index)}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  startAdornment: <InputAdornment position="start">R$</InputAdornment>,
                 }}
-                sx={{ maxWidth: { md: 96 } }}
+                sx={{ maxWidth: { md: 150 } }}
               />
 
               <RHFTextField
                 disabled
-                size="small"
                 name={`items[${index}].total`}
                 label="Total"
                 placeholder="0"
-                value={totalOnRow[index]}
+                value={fCurrency(totalOnRow[index]).replace('R$', '')}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  startAdornment: <InputAdornment position="start">R$</InputAdornment>,
                 }}
-                sx={{ maxWidth: { md: 96 } }}
+                sx={{ maxWidth: { md: 150 } }}
               />
             </Stack>
 
             <Button
-              size="small"
               color="error"
               startIcon={<Iconify icon="eva:trash-2-outline" />}
               onClick={() => handleRemove(index)}
@@ -223,9 +203,14 @@ export default function InvoiceNewEditDetails() {
 
       <Stack spacing={2} sx={{ mt: 3 }}>
         <Stack direction="row" justifyContent="flex-end">
-          <Typography variant="h6">Total: </Typography>
-          <Typography variant="h6" sx={{ textAlign: 'right', width: 120 }}>
-            {fCurrency(totalPrice) || '-'}
+          <Typography variant="h6" sx={{ minWidth: 100 }}>
+            Total (R$):
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: 'right', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          >
+            {fCurrency(totalPrice).replace('R$', '') || '-'}
           </Typography>
         </Stack>
       </Stack>
