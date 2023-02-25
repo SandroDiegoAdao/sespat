@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 // @mui
 import { Container } from '@mui/material';
 // routes
+import { User } from 'src/@types/user';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // _mock_
 import { _userList } from '../../_mock/arrays';
@@ -44,7 +45,8 @@ export default function UserEditPage() {
           ]}
         />
 
-        <UserNewEditForm isEdit currentUser={currentUser} />
+        {/* <UserNewEditForm isEdit currentUser={currentUser} /> */}
+        <UserNewEditForm isEdit currentUser={{} as User} />
       </Container>
     </>
   );

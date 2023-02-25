@@ -49,7 +49,7 @@ const navConfig = [
     items: [
       // USER
       {
-        title: 'usuário',
+        title: 'usuários',
         path: PATH_DASHBOARD.user.list,
         icon: ICONS.user,
       },
@@ -57,9 +57,19 @@ const navConfig = [
       // INVOICE
       {
         title: 'pedidos',
-        path: PATH_DASHBOARD.invoice.list,
+        path: PATH_DASHBOARD.invoice.root,
         icon: ICONS.invoice,
         info: <Label color="info">+20</Label>,
+        children: [
+          {
+            title: 'meus pedidos',
+            path: PATH_DASHBOARD.invoice.list,
+          },
+          {
+            title: 'pedidos de solicitantes',
+            path: PATH_DASHBOARD.invoice.requestInvoice,
+          },
+        ],
       },
     ],
   },

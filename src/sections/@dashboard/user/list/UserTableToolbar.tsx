@@ -37,7 +37,7 @@ export default function UserTableToolbar({
       <TextField
         fullWidth
         select
-        label="Role"
+        label="Cargo"
         value={filterRole}
         onChange={onFilterRole}
         SelectProps={{
@@ -74,7 +74,7 @@ export default function UserTableToolbar({
         fullWidth
         value={filterName}
         onChange={onFilterName}
-        placeholder="Search..."
+        placeholder="Procurar usuário..."
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -91,7 +91,7 @@ export default function UserTableToolbar({
           onClick={onResetFilter}
           startIcon={<Iconify icon="eva:trash-2-outline" />}
         >
-          Clear
+          Limpar
         </Button>
       )}
     </Stack>

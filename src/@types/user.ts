@@ -1,37 +1,15 @@
 // ----------------------------------------------------------------------
 
-export type IUserAccountGeneral = {
+export type User = {
   id: string;
-  avatarUrl: string;
-  name: string;
+  nomeCompleto: string;
   email: string;
-  phoneNumber: string;
-  address: string;
-  country: string;
-  state: string;
-  city: string;
-  zipCode: string;
-  company: string;
-  isVerified: boolean;
-  status: string;
-  role: string;
-};
-
-export type IUserAccountBillingInvoice = {
-  id: string;
-  createdAt: Date | string | number;
-  price: number;
-};
-
-export type IUserAccountBillingAddress = {
-  id: string;
-  name: string;
-  phone: string;
-  country: string;
-  state: string;
-  city: string;
-  street: string;
-  zipCode: string;
+  cargo: string;
+  foto: string;
+  supervisor: string;
+  unidade: string;
+  isSupervisor: boolean;
+  situacao: string;
 };
 
 export type IUserAccountChangePassword = {

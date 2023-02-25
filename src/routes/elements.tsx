@@ -25,6 +25,9 @@ export const GeneralAppPage = Loadable(lazy(() => import('../pages/dashboard/Gen
 
 // DASHBOARD: INVOICE
 export const InvoiceListPage = Loadable(lazy(() => import('../pages/dashboard/InvoiceListPage')));
+export const InvoiceRequestPage = Loadable(
+  lazy(() => import('../pages/dashboard/InvoiceRequestListPage'))
+);
 export const InvoiceDetailsPage = Loadable(
   lazy(() => import('../pages/dashboard/InvoiceDetailsPage'))
 );
@@ -34,7 +37,7 @@ export const InvoiceCreatePage = Loadable(
 export const InvoiceEditPage = Loadable(lazy(() => import('../pages/dashboard/InvoiceEditPage')));
 
 // DASHBOARD: USER
-export const UserListPage = Loadable(lazy(() => import('../pages/dashboard/UserListPage')));
+export const UserListPageView = Loadable(lazy(() => import('../pages/dashboard/UserListPageView')));
 export const UserAccountPage = Loadable(lazy(() => import('../pages/dashboard/UserAccountPage')));
 export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/UserCreatePage')));
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));

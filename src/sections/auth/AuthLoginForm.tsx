@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { Link as RouterLink } from 'react-router-dom';
+import { useSnackbar, VariantType } from 'notistack';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
@@ -25,6 +26,7 @@ type FormValuesProps = {
 
 export default function AuthLoginForm() {
   const { login } = useAuthContext();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,27 +43,36 @@ export default function AuthLoginForm() {
     reset,
     setError,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { isSubmitting, isSubmitSuccessful },
   } = methods;
+
+  const handleSnackbar = (message: string, variant: VariantType) => {
+    enqueueSnackbar(message, {
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'center',
+      },
+      variant,
+    });
+  };
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
       await login(data.email, data.password);
+      reset();
     } catch (error) {
       console.error(error);
-      reset();
       setError('afterSubmit', {
         ...error,
         message: error.message || error,
       });
+      handleSnackbar('E-mail ou senha inválidos!', 'error');
     }
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
-
         <RHFTextField name="email" label="E-mail" />
 
         <RHFTextField

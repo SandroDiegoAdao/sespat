@@ -108,9 +108,9 @@ export default function InvoiceTableRow({
             variant="soft"
             color={
               (status === 'paid' && 'success') ||
-              (status === 'unpaid' && 'warning') ||
-              (status === 'overdue' && 'error') ||
-              'default'
+              (status === 'unpaid' && 'info') ||
+              (status === 'overdue' && 'warning') ||
+              'error'
             }
           >
             {status}

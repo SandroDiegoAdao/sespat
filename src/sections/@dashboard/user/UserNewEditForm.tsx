@@ -12,11 +12,11 @@ import { fData } from '../../../utils/formatNumber';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // @types
-import { IUserAccountGeneral } from '../../../@types/user';
+import { User } from '../../../@types/user';
 // assets
-import { countries } from '../../../assets/data';
+import { countries, filials } from '../../../assets/data';
 // components
-import Label from '../../../components/label';
+// import Label from '../../../components/label';
 import { CustomFile } from '../../../components/upload';
 import { useSnackbar } from '../../../components/snackbar';
 import FormProvider, {
@@ -28,13 +28,13 @@ import FormProvider, {
 
 // ----------------------------------------------------------------------
 
-interface FormValuesProps extends Omit<IUserAccountGeneral, 'avatarUrl'> {
+interface FormValuesProps extends Omit<User, 'foto'> {
   avatarUrl: CustomFile | string | null;
 }
 
 type Props = {
   isEdit?: boolean;
-  currentUser?: IUserAccountGeneral;
+  currentUser?: User;
 };
 
 export default function UserNewEditForm({ isEdit = false, currentUser }: Props) {
@@ -57,19 +57,12 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
   const defaultValues = useMemo(
     () => ({
-      name: currentUser?.name || '',
+      name: currentUser?.nomeCompleto || '',
       email: currentUser?.email || '',
-      phoneNumber: currentUser?.phoneNumber || '',
-      address: currentUser?.address || '',
-      country: currentUser?.country || '',
-      state: currentUser?.state || '',
-      city: currentUser?.city || '',
-      zipCode: currentUser?.zipCode || '',
-      avatarUrl: currentUser?.avatarUrl || null,
-      isVerified: currentUser?.isVerified || true,
-      status: currentUser?.status,
-      company: currentUser?.company || '',
-      role: currentUser?.role || '',
+      unity: currentUser?.unidade || '',
+      role: currentUser?.cargo || '',
+      // status: currentUser?.status || '',
+      avatar: currentUser?.foto || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser]
@@ -82,13 +75,13 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
   const {
     reset,
-    watch,
+    // watch,
     setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const values = watch();
+  // const values = watch();
 
   useEffect(() => {
     if (isEdit && currentUser) {
@@ -132,14 +125,14 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
           <Card sx={{ pt: 10, pb: 5, px: 3 }}>
-            {isEdit && (
+            {/* {isEdit && (
               <Label
                 color={values.status === 'ativo' ? 'success' : 'error'}
                 sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
               >
                 {values.status}
               </Label>
-            )}
+            )} */}
 
             <Box sx={{ mb: 3 }}>
               <RHFUploadAvatar
@@ -199,15 +192,15 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                 <RHFTextField name="email" label="Sobrenome" />
               </Box>
 
-              <Typography variant="overline">Profissional</Typography>
-
               <RHFTextField name="phoneNumber" label="E-mail" />
 
-              <RHFSelect native name="country" label="Unidade" placeholder="Unidade">
+              <Typography variant="overline">Profissional</Typography>
+
+              <RHFSelect native name="country" label="Cargo" placeholder="Cargo">
                 <option value="" />
-                {countries.map((country) => (
-                  <option key={country.code} value={country.label}>
-                    {country.label}
+                {filials.map((filial) => (
+                  <option key={filial.code} value={filial.label}>
+                    {filial.label}
                   </option>
                 ))}
               </RHFSelect>

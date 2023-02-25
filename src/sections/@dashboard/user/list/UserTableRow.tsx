@@ -2,7 +2,6 @@ import { useState } from 'react';
 // @mui
 import {
   Stack,
-  Avatar,
   Button,
   Checkbox,
   TableRow,
@@ -12,17 +11,18 @@ import {
   Typography,
 } from '@mui/material';
 // @types
-import { IUserAccountGeneral } from '../../../../@types/user';
+import { User } from '../../../../@types/user';
 // components
 import Label from '../../../../components/label';
 import Iconify from '../../../../components/iconify';
 import MenuPopover from '../../../../components/menu-popover';
 import ConfirmDialog from '../../../../components/confirm-dialog';
+import { CustomAvatar } from '../../../../components/custom-avatar';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  row: IUserAccountGeneral;
+  row: User;
   selected: boolean;
   onEditRow: VoidFunction;
   onSelectRow: VoidFunction;
@@ -36,7 +36,7 @@ export default function UserTableRow({
   onSelectRow,
   onDeleteRow,
 }: Props) {
-  const { name, avatarUrl, company, role, isVerified, status } = row;
+  const { email, nomeCompleto, foto, unidade, cargo, supervisor, isSupervisor, situacao } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -67,39 +67,46 @@ export default function UserTableRow({
 
         <TableCell>
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <CustomAvatar src={foto} alt={nomeCompleto} name={nomeCompleto} />
 
-            <Typography variant="subtitle2" noWrap>
-              {name}
-            </Typography>
+            <Stack>
+              <Typography variant="subtitle2" noWrap>
+                {nomeCompleto}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" noWrap>
+                {email}
+              </Typography>
+            </Stack>
           </Stack>
         </TableCell>
 
-        <TableCell align="left">{company}</TableCell>
+        <TableCell align="left">{supervisor || '-'}</TableCell>
 
         <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {role}
+          {cargo}
         </TableCell>
+
+        <TableCell align="left">{unidade || '-'}</TableCell>
 
         <TableCell align="center">
           <Iconify
-            icon={isVerified ? 'eva:checkmark-circle-fill' : 'eva:clock-outline'}
+            icon={isSupervisor ? 'eva:checkmark-circle-fill' : 'eva:close-circle-outline'}
             sx={{
               width: 20,
               height: 20,
               color: 'success.main',
-              ...(!isVerified && { color: 'warning.main' }),
+              ...(!isSupervisor && { color: 'error.main' }),
             }}
           />
         </TableCell>
 
-        <TableCell align="left">
+        <TableCell align="right">
           <Label
             variant="soft"
-            color={(status === 'inativo' && 'error') || 'success'}
+            color={(situacao === 'inativo' && 'error') || 'success'}
             sx={{ textTransform: 'capitalize' }}
           >
-            {status}
+            {situacao || 'ativo'}
           </Label>
         </TableCell>
 

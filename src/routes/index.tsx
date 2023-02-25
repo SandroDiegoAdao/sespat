@@ -18,7 +18,7 @@ import {
   // Dashboard: General
   GeneralAppPage,
   // Dashboard: User
-  UserListPage,
+  UserListPageView,
   UserEditPage,
   UserCreatePage,
   UserAccountPage,
@@ -92,7 +92,7 @@ export default function Router() {
           path: 'user',
           children: [
             { element: <Navigate to="/dashboard/user/account" replace />, index: true },
-            { path: 'list', element: <UserListPage /> },
+            { path: 'list', element: <UserListPageView /> },
             { path: 'new', element: <UserCreatePage /> },
             { path: ':name/edit', element: <UserEditPage /> },
             { path: 'account', element: <UserAccountPage /> },

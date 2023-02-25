@@ -3,7 +3,7 @@ import { createContext, useEffect, useReducer, useCallback, useMemo } from 'reac
 import axios from '../utils/axios';
 import localStorageAvailable from '../utils/localStorageAvailable';
 //
-import { isValidToken, setSession } from './utils';
+import { isValidToken, jwtDecode, setSession } from './utils';
 import { ActionMapType, AuthStateType, AuthUserType, JWTContextType } from './types';
 
 enum Types {
@@ -91,9 +91,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const response = await axios.get('/api/account/my-account');
+        const tokenDecoded = jwtDecode(accessToken);
 
-        const { user } = response.data;
+        const user = {
+          id: tokenDecoded.Id,
+          name: tokenDecoded.Name,
+          email: tokenDecoded.Email,
+          cargo: tokenDecoded.Cargo,
+          supervisorId: tokenDecoded.SupervisorId,
+          unityId: tokenDecoded.UnityId,
+          role: tokenDecoded.role,
+        };
 
         dispatch({
           type: Types.INITIAL,
@@ -129,13 +137,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {
-    const response = await axios.post('/api/account/login', {
-      email,
+    const formatedEmail = email.toLowerCase();
+
+    const response = await axios.post('/api/usuarios:login', {
+      email: formatedEmail,
       password,
     });
-    const { accessToken, user } = response.data;
 
-    setSession(accessToken);
+    const token = response.data;
+    setSession(token);
+
+    const tokenDecoded = jwtDecode(token);
+
+    const user = {
+      id: tokenDecoded.Id,
+      name: tokenDecoded.Name,
+      email: tokenDecoded.Email,
+      cargo: tokenDecoded.Cargo,
+      supervisorId: tokenDecoded.SupervisorId,
+      unityId: tokenDecoded.UnityId,
+      role: tokenDecoded.role,
+    };
 
     dispatch({
       type: Types.LOGIN,

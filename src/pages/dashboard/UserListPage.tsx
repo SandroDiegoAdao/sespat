@@ -19,9 +19,7 @@ import {
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
-import { IUserAccountGeneral } from '../../@types/user';
-// _mock_
-import { _userList } from '../../_mock/arrays';
+import { User } from '../../@types/user';
 // components
 import Iconify from '../../components/iconify';
 import Scrollbar from '../../components/scrollbar';
@@ -59,17 +57,24 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', align: 'left' },
-  { id: 'company', label: 'Company', align: 'left' },
-  { id: 'role', label: 'Role', align: 'left' },
-  { id: 'isVerified', label: 'Verified', align: 'center' },
-  { id: 'status', label: 'Status', align: 'left' },
+  { id: 'name', label: 'Nome', align: 'left' },
+  { id: 'supervisor', label: 'Supervisor Vinc.', align: 'left' },
+  { id: 'role', label: 'Cargo', align: 'left' },
+  { id: 'unity', label: 'Unidade', align: 'left' },
+  { id: 'isSupervisor', label: 'Supervisor', align: 'center' },
+  { id: 'situacao', label: 'Situação', align: 'right' },
   { id: '' },
 ];
 
 // ----------------------------------------------------------------------
 
-export default function UserListPage() {
+interface UserListPageProps {
+  users: Array<User>;
+}
+
+// ----------------------------------------------------------------------
+
+export default function UserListPage({ users }: UserListPageProps) {
   const {
     dense,
     page,
@@ -93,7 +98,7 @@ export default function UserListPage() {
 
   const navigate = useNavigate();
 
-  const [tableData, setTableData] = useState(_userList);
+  const [tableData, setTableData] = useState<Array<User>>(users);
 
   const [filterName, setFilterName] = useState('');
 
@@ -283,7 +288,7 @@ export default function UserListPage() {
                         selected={selected.includes(row.id)}
                         onSelectRow={() => onSelectRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
-                        onEditRow={() => handleEditRow(row.name)}
+                        onEditRow={() => handleEditRow(row.nomeCompleto)}
                       />
                     ))}
 
@@ -317,7 +322,7 @@ export default function UserListPage() {
         title="Deletar"
         content={
           <>
-            Tem certeza que deseja deletar <strong> {selected.length} </strong> itens?
+            Tem certeza que deseja deletar <strong> {selected.length} </strong> usuários?
           </>
         }
         action={
@@ -346,7 +351,7 @@ function applyFilter({
   filterStatus,
   filterRole,
 }: {
-  inputData: IUserAccountGeneral[];
+  inputData: User[];
   comparator: (a: any, b: any) => number;
   filterName: string;
   filterStatus: string;
@@ -364,16 +369,16 @@ function applyFilter({
 
   if (filterName) {
     inputData = inputData.filter(
-      (user) => user.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+      (user) => user.nomeCompleto.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
     );
   }
 
   if (filterStatus !== 'todos') {
-    inputData = inputData.filter((user) => user.status === filterStatus);
+    // inputData = inputData.filter((user) => user.status === filterStatus);
   }
 
   if (filterRole !== 'todos') {
-    inputData = inputData.filter((user) => user.role === filterRole);
+    inputData = inputData.filter((user) => user.cargo === filterRole);
   }
 
   return inputData;
