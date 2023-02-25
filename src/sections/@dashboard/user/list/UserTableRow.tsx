@@ -96,7 +96,7 @@ export default function UserTableRow({
         <TableCell align="left">
           <Label
             variant="soft"
-            color={(status === 'banned' && 'error') || 'success'}
+            color={(status === 'inativo' && 'error') || 'success'}
             sx={{ textTransform: 'capitalize' }}
           >
             {status}
@@ -124,7 +124,7 @@ export default function UserTableRow({
           sx={{ color: 'error.main' }}
         >
           <Iconify icon="eva:trash-2-outline" />
-          Delete
+          Deletar
         </MenuItem>
 
         <MenuItem
@@ -134,18 +134,18 @@ export default function UserTableRow({
           }}
         >
           <Iconify icon="eva:edit-fill" />
-          Edit
+          Editar
         </MenuItem>
       </MenuPopover>
 
       <ConfirmDialog
         open={openConfirm}
         onClose={handleCloseConfirm}
-        title="Delete"
-        content="Are you sure want to delete?"
+        title="Deletar usuário"
+        content="Tem certeza que deseja deletar este usuário?"
         action={
           <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
+            Deletar
           </Button>
         }
       />

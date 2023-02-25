@@ -132,6 +132,6 @@ export const _userList = [...Array(24)].map((_, index) => ({
   zipCode: '85807',
   company: _mock.company(index),
   isVerified: _mock.boolean(index),
-  status: randomInArray(['active', 'banned']),
+  status: randomInArray(['ativo', 'inativo']),
   role: _mock.role(index),
 }));

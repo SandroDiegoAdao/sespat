@@ -43,10 +43,10 @@ import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/l
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = ['all', 'active', 'banned'];
+const STATUS_OPTIONS = ['todos', 'ativos', 'inativos'];
 
 const ROLE_OPTIONS = [
-  'all',
+  'todos',
   'ux designer',
   'full stack designer',
   'backend developer',
@@ -97,11 +97,11 @@ export default function UserListPage() {
 
   const [filterName, setFilterName] = useState('');
 
-  const [filterRole, setFilterRole] = useState('all');
+  const [filterRole, setFilterRole] = useState('todos');
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
-  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('todos');
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -115,7 +115,7 @@ export default function UserListPage() {
 
   const denseHeight = dense ? 52 : 72;
 
-  const isFiltered = filterName !== '' || filterRole !== 'all' || filterStatus !== 'all';
+  const isFiltered = filterName !== '' || filterRole !== 'todos' || filterStatus !== 'todos';
 
   const isNotFound =
     (!dataFiltered.length && !!filterName) ||
@@ -180,23 +180,23 @@ export default function UserListPage() {
 
   const handleResetFilter = () => {
     setFilterName('');
-    setFilterRole('all');
-    setFilterStatus('all');
+    setFilterRole('todos');
+    setFilterStatus('todos');
   };
 
   return (
     <>
       <Helmet>
-        <title> User: List | SESPAT</title>
+        <title> Usuários | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="User List"
+          heading="Usuários"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'List' },
+            { name: 'Usuários', href: PATH_DASHBOARD.user.list },
+            { name: 'Lista' },
           ]}
           action={
             <Button
@@ -205,7 +205,7 @@ export default function UserListPage() {
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              New User
+              Novo Usuário
             </Button>
           }
         />
@@ -248,7 +248,7 @@ export default function UserListPage() {
                 )
               }
               action={
-                <Tooltip title="Delete">
+                <Tooltip title="Deletar">
                   <IconButton color="primary" onClick={handleOpenConfirm}>
                     <Iconify icon="eva:trash-2-outline" />
                   </IconButton>
@@ -314,10 +314,10 @@ export default function UserListPage() {
       <ConfirmDialog
         open={openConfirm}
         onClose={handleCloseConfirm}
-        title="Delete"
+        title="Deletar"
         content={
           <>
-            Are you sure want to delete <strong> {selected.length} </strong> items?
+            Tem certeza que deseja deletar <strong> {selected.length} </strong> itens?
           </>
         }
         action={
@@ -329,7 +329,7 @@ export default function UserListPage() {
               handleCloseConfirm();
             }}
           >
-            Delete
+            Deletar
           </Button>
         }
       />
@@ -368,11 +368,11 @@ function applyFilter({
     );
   }
 
-  if (filterStatus !== 'all') {
+  if (filterStatus !== 'todos') {
     inputData = inputData.filter((user) => user.status === filterStatus);
   }
 
-  if (filterRole !== 'all') {
+  if (filterRole !== 'todos') {
     inputData = inputData.filter((user) => user.role === filterRole);
   }
 

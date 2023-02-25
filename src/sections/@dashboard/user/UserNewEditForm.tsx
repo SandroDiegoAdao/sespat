@@ -2,11 +2,11 @@ import * as Yup from 'yup';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 // form
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel } from '@mui/material';
+import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 // utils
 import { fData } from '../../../utils/formatNumber';
 // routes
@@ -83,7 +83,6 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
   const {
     reset,
     watch,
-    control,
     setValue,
     handleSubmit,
     formState: { isSubmitting },
@@ -105,7 +104,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
+      enqueueSnackbar(!isEdit ? 'Criado com sucesso!' : 'Atualizado com sucesso!');
       navigate(PATH_DASHBOARD.user.list);
       console.log('DATA', data);
     } catch (error) {
@@ -135,7 +134,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
           <Card sx={{ pt: 10, pb: 5, px: 3 }}>
             {isEdit && (
               <Label
-                color={values.status === 'active' ? 'success' : 'error'}
+                color={values.status === 'ativo' ? 'success' : 'error'}
                 sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
               >
                 {values.status}
@@ -144,7 +143,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
             <Box sx={{ mb: 5 }}>
               <RHFUploadAvatar
-                name="avatarUrl"
+                name="foto"
                 maxSize={3145728}
                 onDrop={handleDrop}
                 helperText={
@@ -158,44 +157,12 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                       color: 'text.secondary',
                     }}
                   >
-                    Allowed *.jpeg, *.jpg, *.png, *.gif
-                    <br /> max size of {fData(3145728)}
+                    Permitido *.jpeg, *.jpg, *.png, *.gif
+                    <br /> tamanho máximo de {fData(3145728)}
                   </Typography>
                 }
               />
             </Box>
-
-            {isEdit && (
-              <FormControlLabel
-                labelPlacement="start"
-                control={
-                  <Controller
-                    name="status"
-                    control={control}
-                    render={({ field }) => (
-                      <Switch
-                        {...field}
-                        checked={field.value !== 'active'}
-                        onChange={(event) =>
-                          field.onChange(event.target.checked ? 'banned' : 'active')
-                        }
-                      />
-                    )}
-                  />
-                }
-                label={
-                  <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Banned
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      Apply disable account
-                    </Typography>
-                  </>
-                }
-                sx={{ mx: 0, mb: 3, width: 1, justifyContent: 'space-between' }}
-              />
-            )}
 
             <RHFSwitch
               name="isVerified"
@@ -203,10 +170,10 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
               label={
                 <>
                   <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                    Email Verified
+                    Email Verificado
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    Disabling this will automatically send the user a verification email
+                    Enviará automaticamente um e-mail de verificação ao usuário.
                   </Typography>
                 </>
               }
@@ -249,7 +216,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Create User' : 'Save Changes'}
+                {!isEdit ? 'Criar' : 'Salvar'}
               </LoadingButton>
             </Stack>
           </Card>

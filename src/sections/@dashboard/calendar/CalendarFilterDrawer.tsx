@@ -67,9 +67,9 @@ export default function CalendarFilterDrawer({
         justifyContent="space-between"
         sx={{ pl: 2, pr: 1, py: 2 }}
       >
-        <Typography variant="subtitle1">Filters</Typography>
+        <Typography variant="subtitle1">Filtros</Typography>
 
-        <Tooltip title="Reset">
+        <Tooltip title="Limpar filtros">
           <Box sx={{ position: 'relative' }}>
             <IconButton onClick={onResetFilter}>
               <Iconify icon="ic:round-refresh" />
@@ -102,7 +102,7 @@ export default function CalendarFilterDrawer({
           p: (theme) => theme.spacing(2, 2, 1, 2),
         }}
       >
-        Colors
+        Cores
       </Typography>
 
       <ColorMultiPicker
@@ -120,27 +120,26 @@ export default function CalendarFilterDrawer({
           fontWeight: 'fontWeightMedium',
         }}
       >
-        Range
+        Data
       </Typography>
 
       <Stack spacing={2} sx={{ px: 2 }}>
         <DatePicker
-          label="Start date"
+          label="Data de início"
           value={picker.startDate}
           onChange={picker.onChangeStartDate}
-          renderInput={(params) => <TextField size="small" {...params} />}
+          renderInput={(params) => <TextField {...params} />}
         />
 
         <DatePicker
-          label="End date"
+          label="Data de término"
           value={picker.endDate}
           onChange={picker.onChangeEndDate}
           renderInput={(params) => (
             <TextField
-              size="small"
               {...params}
               error={picker.isError}
-              helperText={picker.isError && 'End date must be later than start date'}
+              helperText={picker.isError && 'A data de término deve ser posterior à data de início'}
             />
           )}
         />
@@ -154,7 +153,7 @@ export default function CalendarFilterDrawer({
           fontWeight: 'fontWeightMedium',
         }}
       >
-        Events ({events.length})
+        Eventos ({events.length})
       </Typography>
 
       <Scrollbar sx={{ height: 1 }}>

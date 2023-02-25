@@ -21,7 +21,6 @@ import {
   UserListPage,
   UserEditPage,
   UserCreatePage,
-  UserProfilePage,
   UserAccountPage,
   // Dashboard: Invoice
   InvoiceListPage,
@@ -92,8 +91,7 @@ export default function Router() {
         {
           path: 'user',
           children: [
-            { element: <Navigate to="/dashboard/user/profile" replace />, index: true },
-            { path: 'profile', element: <UserProfilePage /> },
+            { element: <Navigate to="/dashboard/user/account" replace />, index: true },
             { path: 'list', element: <UserListPage /> },
             { path: 'new', element: <UserCreatePage /> },
             { path: ':name/edit', element: <UserEditPage /> },

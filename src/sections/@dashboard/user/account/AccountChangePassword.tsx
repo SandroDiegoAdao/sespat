@@ -20,16 +20,16 @@ export default function AccountChangePassword() {
   const { enqueueSnackbar } = useSnackbar();
 
   const ChangePassWordSchema = Yup.object().shape({
-    oldPassword: Yup.string().required('Old Password is required'),
+    oldPassword: Yup.string().required('A senha antiga é obrigatória'),
     newPassword: Yup.string()
-      .required('New Password is required')
-      .min(6, 'Password must be at least 6 characters')
+      .required('A nova senha é obrigatória')
+      .min(6, 'A nova senha deve ter no mínimo 6 caracteres')
       .test(
         'no-match',
-        'New password must be different than old password',
+        'A nova senha deve ser diferente da senha antiga',
         (value, { parent }) => value !== parent.oldPassword
       ),
-    confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword')], 'Passwords must match'),
+    confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword')], 'As senhas não coincidem'),
   });
 
   const defaultValues = {
@@ -53,7 +53,7 @@ export default function AccountChangePassword() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar('Update success!');
+      enqueueSnackbar('Alteração de senha realizada com sucesso');
       console.log('DATA', data);
     } catch (error) {
       console.error(error);
@@ -64,24 +64,24 @@ export default function AccountChangePassword() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card>
         <Stack spacing={3} alignItems="flex-end" sx={{ p: 3 }}>
-          <RHFTextField name="oldPassword" type="password" label="Old Password" />
+          <RHFTextField name="oldPassword" type="password" label="Senha Antiga" />
 
           <RHFTextField
             name="newPassword"
             type="password"
-            label="New Password"
+            label="Nova Senha"
             helperText={
               <Stack component="span" direction="row" alignItems="center">
-                <Iconify icon="eva:info-fill" width={16} sx={{ mr: 0.5 }} /> Password must be
-                minimum 6+
+                <Iconify icon="eva:info-fill" width={16} sx={{ mr: 0.5 }} /> A senha deve ter no
+                mínimo 6 caracteres
               </Stack>
             }
           />
 
-          <RHFTextField name="confirmNewPassword" type="password" label="Confirm New Password" />
+          <RHFTextField name="confirmNewPassword" type="password" label="Confirmar Nova Senha" />
 
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-            Save Changes
+            Salvar
           </LoadingButton>
         </Stack>
       </Card>

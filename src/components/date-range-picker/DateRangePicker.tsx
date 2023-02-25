@@ -19,7 +19,7 @@ import { DateRangePickerProps } from './types';
 // ----------------------------------------------------------------------
 
 export default function DateRangePicker({
-  title = 'Select date range',
+  title = 'Selecione um período',
   variant = 'input',
   //
   startDate,
@@ -93,14 +93,14 @@ export default function DateRangePicker({
           ) : (
             <>
               <DatePicker
-                label="Start date"
+                label="Data de início"
                 value={startDate}
                 onChange={onChangeStartDate}
                 renderInput={(params) => <TextField {...params} />}
               />
 
               <DatePicker
-                label="End date"
+                label="Data de término"
                 value={endDate}
                 onChange={onChangeEndDate}
                 renderInput={(params) => <TextField {...params} />}
@@ -111,18 +111,18 @@ export default function DateRangePicker({
 
         {isError && (
           <FormHelperText error sx={{ px: 2 }}>
-            End date must be later than start date
+            A data de término deve ser maior que a data de início
           </FormHelperText>
         )}
       </DialogContent>
 
       <DialogActions>
         <Button variant="outlined" color="inherit" onClick={onClose}>
-          Cancel
+          Cancelar
         </Button>
 
         <Button disabled={isError} variant="contained" onClick={onClose}>
-          Apply
+          Confirmar
         </Button>
       </DialogActions>
     </Dialog>

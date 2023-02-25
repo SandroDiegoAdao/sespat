@@ -20,14 +20,13 @@ export default function Page404() {
       <MotionContainer>
         <m.div variants={varBounce().in}>
           <Typography variant="h3" paragraph>
-            Desculpe, página não encontrada!
+            Página não encontrada!
           </Typography>
         </m.div>
 
         <m.div variants={varBounce().in}>
           <Typography sx={{ color: 'text.secondary' }}>
-            Desculpe, não conseguimos encontrar a página que você está procurando. Talvez você tenha
-            digitado o URL errado? Certifique-se de verificar a ortografia.
+            Desculpe, não conseguimos encontrar a página que você está procurando.
           </Typography>
         </m.div>
 

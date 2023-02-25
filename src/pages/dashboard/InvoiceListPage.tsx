@@ -214,7 +214,7 @@ export default function InvoiceListPage() {
   return (
     <>
       <Helmet>
-        <title> Invoice: List | SESPAT</title>
+        <title> Pedidos | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>

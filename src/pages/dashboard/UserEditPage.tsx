@@ -25,19 +25,19 @@ export default function UserEditPage() {
   return (
     <>
       <Helmet>
-        <title> User: Edit user | SESPAT</title>
+        <title> Editar Usuário | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Edit user"
+          heading="Editar Usuário"
           links={[
             {
               name: 'Dashboard',
               href: PATH_DASHBOARD.root,
             },
             {
-              name: 'User',
+              name: 'Usuários',
               href: PATH_DASHBOARD.user.list,
             },
             { name: currentUser?.name },

@@ -16,7 +16,6 @@ import { countries } from '../../../../assets/data';
 import { CustomFile } from '../../../../components/upload';
 import { useSnackbar } from '../../../../components/snackbar';
 import FormProvider, {
-  RHFSwitch,
   RHFSelect,
   RHFTextField,
   RHFUploadAvatar,
@@ -112,7 +111,7 @@ export default function AccountGeneral() {
         <Grid item xs={12} md={4}>
           <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
             <RHFUploadAvatar
-              name="photoURL"
+              name="foto"
               maxSize={3145728}
               onDrop={handleDrop}
               helperText={
@@ -126,17 +125,10 @@ export default function AccountGeneral() {
                     color: 'text.secondary',
                   }}
                 >
-                  Allowed *.jpeg, *.jpg, *.png, *.gif
-                  <br /> max size of {fData(3145728)}
+                  Permitido *.jpeg, *.jpg, *.png, *.gif
+                  <br /> tamanho máximo de {fData(3145728)}
                 </Typography>
               }
-            />
-
-            <RHFSwitch
-              name="isPublic"
-              labelPlacement="start"
-              label="Public Profile"
-              sx={{ mt: 5 }}
             />
           </Card>
         </Grid>
@@ -152,15 +144,15 @@ export default function AccountGeneral() {
                 sm: 'repeat(2, 1fr)',
               }}
             >
-              <RHFTextField name="displayName" label="Name" />
+              <RHFTextField name="displayName" label="Nome" />
 
-              <RHFTextField name="email" label="Email Address" />
+              <RHFTextField name="email" label="E-mail" />
 
-              <RHFTextField name="phoneNumber" label="Phone Number" />
+              <RHFTextField name="phoneNumber" label="Telefone" />
 
-              <RHFTextField name="address" label="Address" />
+              <RHFTextField name="address" label="Endereço" />
 
-              <RHFSelect native name="country" label="Country" placeholder="Country">
+              <RHFSelect native name="country" label="País" placeholder="País">
                 <option value="" />
                 {countries.map((country) => (
                   <option key={country.code} value={country.label}>
@@ -169,18 +161,18 @@ export default function AccountGeneral() {
                 ))}
               </RHFSelect>
 
-              <RHFTextField name="state" label="State/Region" />
+              <RHFTextField name="state" label="Estado" />
 
-              <RHFTextField name="city" label="City" />
+              <RHFTextField name="city" label="Cidade" />
 
-              <RHFTextField name="zipCode" label="Zip/Code" />
+              <RHFTextField name="zipCode" label="CEP" />
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
               <RHFTextField name="about" multiline rows={4} label="About" />
 
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                Save Changes
+                Salvar
               </LoadingButton>
             </Stack>
           </Card>

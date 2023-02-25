@@ -25,19 +25,19 @@ export default function UserAccountPage() {
   const TABS = [
     {
       value: 'general',
-      label: 'General',
+      label: 'Geral',
       icon: <Iconify icon="ic:round-account-box" />,
       component: <AccountGeneral />,
     },
     {
       value: 'notifications',
-      label: 'Notifications',
+      label: 'Notificações',
       icon: <Iconify icon="eva:bell-fill" />,
       component: <AccountNotifications />,
     },
     {
       value: 'change_password',
-      label: 'Change password',
+      label: 'Alterar senha',
       icon: <Iconify icon="ic:round-vpn-key" />,
       component: <AccountChangePassword />,
     },
@@ -46,16 +46,16 @@ export default function UserAccountPage() {
   return (
     <>
       <Helmet>
-        <title> User: Account Settings | SESPAT</title>
+        <title> Conta | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Account"
+          heading="Conta"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'Account Settings' },
+            { name: 'Usuários', href: PATH_DASHBOARD.user.list },
+            { name: 'Conta' },
           ]}
         />
 

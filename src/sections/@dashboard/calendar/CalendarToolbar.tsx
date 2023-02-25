@@ -14,9 +14,9 @@ import MenuPopover from '../../../components/menu-popover';
 // ----------------------------------------------------------------------
 
 const VIEW_OPTIONS = [
-  { value: 'dayGridMonth', label: 'Month', icon: 'ic:round-view-module' },
-  { value: 'timeGridWeek', label: 'Week', icon: 'ic:round-view-week' },
-  { value: 'timeGridDay', label: 'Day', icon: 'ic:round-view-day' },
+  { value: 'dayGridMonth', label: 'Mês', icon: 'ic:round-view-module' },
+  { value: 'timeGridWeek', label: 'Semana', icon: 'ic:round-view-week' },
+  { value: 'timeGridDay', label: 'Dia', icon: 'ic:round-view-day' },
   { value: 'listWeek', label: 'Agenda', icon: 'ic:round-view-agenda' },
 ] as const;
 
@@ -85,7 +85,9 @@ export default function CalendarToolbar({
             <Iconify icon="eva:arrow-ios-back-fill" />
           </IconButton>
 
-          <Typography variant="h6">{fDate(date)}</Typography>
+          <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
+            {fDate(date, 'LLLL yyyy')}
+          </Typography>
 
           <IconButton onClick={onNextDate}>
             <Iconify icon="eva:arrow-ios-forward-fill" />
@@ -94,7 +96,7 @@ export default function CalendarToolbar({
 
         <Stack direction="row" alignItems="center" spacing={1}>
           <Button size="small" color="error" variant="contained" onClick={onToday}>
-            Today
+            Hoje
           </Button>
 
           <IconButton onClick={onOpenFilter}>

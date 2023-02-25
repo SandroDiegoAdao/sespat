@@ -14,19 +14,17 @@ import FormProvider, { RHFSwitch } from '../../../../components/hook-form';
 const ACTIVITY_OPTIONS = [
   {
     value: 'activityComments',
-    label: 'Email me when someone comments onmy article',
+    label: 'Notificar quando um pedido for aprovado',
   },
   {
     value: 'activityAnswers',
-    label: 'Email me when someone answers on my form',
+    label: 'Notificar quando um pedido for rejeitado',
   },
-  { value: 'activityFollows', label: 'Email me hen someone follows me' },
 ] as const;
 
 const APPLICATION_OPTIONS = [
-  { value: 'applicationNews', label: 'News and announcements' },
-  { value: 'applicationProduct', label: 'Weekly product updates' },
-  { value: 'applicationBlog', label: 'Weekly blog digest' },
+  { value: 'applicationNews', label: 'Notificar quando a data de requisição for iniciada' },
+  { value: 'applicationProduct', label: 'Notifica quando a data de requisição for finalizada' },
 ] as const;
 
 const NOTIFICATION_SETTINGS = {
@@ -77,7 +75,7 @@ export default function AccountNotifications() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
         <Typography variant="overline" component="div" sx={{ color: 'text.secondary' }}>
-          Activity
+          Atividades
         </Typography>
 
         <Stack alignItems="flex-start" spacing={1} sx={{ mt: 2 }}>
@@ -92,7 +90,7 @@ export default function AccountNotifications() {
         </Stack>
 
         <Typography variant="overline" component="div" sx={{ color: 'text.secondary', mt: 5 }}>
-          Application
+          Calendário
         </Typography>
 
         <Stack alignItems="flex-start" spacing={1} sx={{ mt: 2, mb: 5 }}>

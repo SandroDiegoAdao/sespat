@@ -21,10 +21,6 @@ const OPTIONS = [
     linkTo: '/',
   },
   {
-    label: 'Perfil',
-    linkTo: PATH_DASHBOARD.user.profile,
-  },
-  {
     label: 'Conta',
     linkTo: PATH_DASHBOARD.user.account,
   },

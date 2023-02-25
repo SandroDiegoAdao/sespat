@@ -1,89 +1,5 @@
 // ----------------------------------------------------------------------
 
-export type IUserSocialLink = {
-  facebookLink: string;
-  instagramLink: string;
-  linkedinLink: string;
-  twitterLink: string;
-};
-
-export type IUserProfileFollowers = {
-  follower: number;
-  following: number;
-};
-
-export type IUserProfileCover = {
-  name: string;
-  cover: string;
-  role: string;
-};
-
-export type IUserProfileAbout = {
-  quote: string;
-  country: string;
-  email: string;
-  role: string;
-  company: string;
-  school: string;
-};
-
-export type IUserProfile = IUserProfileFollowers &
-  IUserProfileAbout & {
-    id: string;
-    socialLinks: IUserSocialLink;
-  };
-
-export type IUserProfileFollower = {
-  id: string;
-  avatarUrl: string;
-  name: string;
-  country: string;
-  isFollowed: boolean;
-};
-
-export type IUserProfileGallery = {
-  id: string;
-  title: string;
-  postAt: Date | string | number;
-  imageUrl: string;
-};
-
-export type IUserProfileFriend = {
-  id: string;
-  avatarUrl: string;
-  name: string;
-  role: string;
-};
-
-export type IUserProfilePost = {
-  id: string;
-  author: {
-    id: string;
-    avatarUrl: string;
-    name: string;
-  };
-  isLiked: boolean;
-  createdAt: Date | string | number;
-  media: string;
-  message: string;
-  personLikes: {
-    name: string;
-    avatarUrl: string;
-  }[];
-  comments: {
-    id: string;
-    author: {
-      id: string;
-      avatarUrl: string;
-      name: string;
-    };
-    createdAt: Date | string | number;
-    message: string;
-  }[];
-};
-
-// ----------------------------------------------------------------------
-
 export type IUserAccountGeneral = {
   id: string;
   avatarUrl: string;
@@ -99,12 +15,6 @@ export type IUserAccountGeneral = {
   isVerified: boolean;
   status: string;
   role: string;
-};
-
-export type IUserAccountBillingCreditCard = {
-  id: string;
-  cardNumber: string;
-  cardType: string;
 };
 
 export type IUserAccountBillingInvoice = {

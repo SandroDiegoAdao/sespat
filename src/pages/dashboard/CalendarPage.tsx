@@ -212,7 +212,7 @@ export default function CalendarPage() {
       if (selectedEventId) {
         handleCloseModal();
         dispatch(deleteEvent(selectedEventId));
-        enqueueSnackbar('Delete success!');
+        enqueueSnackbar('Evento excluído com sucesso!');
       }
     } catch (error) {
       console.error(error);
@@ -249,29 +249,28 @@ export default function CalendarPage() {
   return (
     <>
       <Helmet>
-        <title> Calendar | SESPAT</title>
+        <title> Calendário | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <CustomBreadcrumbs
-          heading="Calendar"
+          heading="Calendário"
           links={[
             {
               name: 'Dashboard',
               href: PATH_DASHBOARD.root,
             },
             {
-              name: 'Calendar',
+              name: 'Calendário',
             },
           ]}
-          moreLink={['https://fullcalendar.io/docs/react']}
           action={
             <Button
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
               onClick={handleOpenModal}
             >
-              New Event
+              Novo Evento
             </Button>
           }
         />
@@ -293,6 +292,8 @@ export default function CalendarPage() {
               editable
               droppable
               selectable
+              moreLinkText={(num: number) => `+${num} eventos`}
+              locale="pt-br"
               rerenderDelay={10}
               allDayMaintainDuration
               eventResizableFromStart
@@ -322,7 +323,7 @@ export default function CalendarPage() {
       </Container>
 
       <Dialog fullWidth maxWidth="xs" open={openForm} onClose={handleCloseModal}>
-        <DialogTitle>{selectedEvent ? 'Edit Event' : 'Add Event'}</DialogTitle>
+        <DialogTitle>{selectedEvent ? 'Editar Evento' : 'Novo Evento'}</DialogTitle>
 
         <CalendarForm
           event={selectedEvent}

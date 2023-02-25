@@ -1,8 +1,4 @@
-// @mui
 import { enUS, ptBR } from '@mui/material/locale';
-
-// PLEASE REMOVE `LOCAL STORAGE` WHEN YOU CHANGE SETTINGS.
-// ----------------------------------------------------------------------
 
 export const allLangs = [
   {

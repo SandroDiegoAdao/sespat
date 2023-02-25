@@ -67,7 +67,7 @@ export default function CalendarForm({
   const hasEventData = !!event;
 
   const EventSchema = Yup.object().shape({
-    title: Yup.string().max(255).required('Title is required'),
+    title: Yup.string().max(255).required('O título é obrigatório'),
     description: Yup.string().max(5000),
   });
 
@@ -112,11 +112,11 @@ export default function CalendarForm({
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3} sx={{ px: 3 }}>
-        <RHFTextField name="title" label="Title" />
+        <RHFTextField name="title" label="Título" />
 
-        <RHFTextField name="description" label="Description" multiline rows={3} />
+        <RHFTextField name="description" label="Descrição" multiline rows={3} />
 
-        <RHFSwitch name="allDay" label="All day" />
+        <RHFSwitch name="allDay" label="Dia inteiro" />
 
         <Controller
           name="start"
@@ -125,8 +125,7 @@ export default function CalendarForm({
             <MobileDateTimePicker
               {...field}
               onChange={(newValue: Date | null) => field.onChange(newValue)}
-              label="Start date"
-              inputFormat="dd/MM/yyyy hh:mm a"
+              label="Data de início"
               renderInput={(params) => <TextField {...params} fullWidth />}
             />
           )}
@@ -139,14 +138,15 @@ export default function CalendarForm({
             <MobileDateTimePicker
               {...field}
               onChange={(newValue: Date | null) => field.onChange(newValue)}
-              label="End date"
-              inputFormat="dd/MM/yyyy hh:mm a"
+              label="Data de término"
               renderInput={(params) => (
                 <TextField
                   {...params}
                   fullWidth
                   error={!!isDateError}
-                  helperText={isDateError && 'End date must be later than start date'}
+                  helperText={
+                    isDateError && 'A data de término deve ser maior que a data de início'
+                  }
                 />
               )}
             />
@@ -168,7 +168,7 @@ export default function CalendarForm({
 
       <DialogActions>
         {hasEventData && (
-          <Tooltip title="Delete Event">
+          <Tooltip title="Deletar Evento">
             <IconButton onClick={onDeleteEvent}>
               <Iconify icon="eva:trash-2-outline" />
             </IconButton>
@@ -178,11 +178,11 @@ export default function CalendarForm({
         <Box sx={{ flexGrow: 1 }} />
 
         <Button variant="outlined" color="inherit" onClick={onCancel}>
-          Cancel
+          Cancelar
         </Button>
 
         <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-          {hasEventData ? 'Update' : 'Add'}
+          {hasEventData ? 'Editar' : 'Salvar'}
         </LoadingButton>
       </DialogActions>
     </FormProvider>

@@ -16,7 +16,7 @@ export default function SearchNotFound({ query, sx, ...other }: Props) {
       {...other}
     >
       <Typography variant="h6" paragraph>
-        Opsss...
+        Ops...
       </Typography>
 
       <Typography variant="body2">

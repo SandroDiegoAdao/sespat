@@ -113,7 +113,7 @@ function Searchbar() {
       group: group && group.length > 1 ? group[0] : (option as Option).subheader,
       title: option.title,
       path: option.path,
-      indexKey: 'minimal',
+      indexKey: 'sespat',
     };
   });
 
