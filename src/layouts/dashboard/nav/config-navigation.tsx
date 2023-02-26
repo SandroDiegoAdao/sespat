@@ -71,6 +71,13 @@ const navConfig = [
           },
         ],
       },
+
+      // PRODUCT
+      {
+        title: 'produtos',
+        path: PATH_DASHBOARD.product.root,
+        icon: ICONS.ecommerce,
+      },
     ],
   },
 

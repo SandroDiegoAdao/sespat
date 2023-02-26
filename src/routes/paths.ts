@@ -45,6 +45,12 @@ export const PATH_DASHBOARD = {
     edit: (name: string) => path(ROOTS_DASHBOARD, `/user/${name}/edit`),
     demoEdit: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
   },
+  product: {
+    root: path(ROOTS_DASHBOARD, '/product'),
+    list: path(ROOTS_DASHBOARD, '/product/list'),
+    new: path(ROOTS_DASHBOARD, '/product/new'),
+    edit: (id: string) => path(ROOTS_DASHBOARD, `/product/${id}/edit`),
+  },
   invoice: {
     root: path(ROOTS_DASHBOARD, '/invoice'),
     list: path(ROOTS_DASHBOARD, '/invoice/list'),

@@ -22,6 +22,8 @@ import {
   UserEditPage,
   UserCreatePage,
   UserAccountPage,
+  // Dashboard: Product
+  ProductListPageView,
   // Dashboard: Invoice
   InvoiceListPage,
   InvoiceDetailsPage,
@@ -106,6 +108,13 @@ export default function Router() {
             { path: ':id', element: <InvoiceDetailsPage /> },
             { path: ':id/edit', element: <InvoiceEditPage /> },
             { path: 'new', element: <InvoiceCreatePage /> },
+          ],
+        },
+        {
+          path: 'product',
+          children: [
+            { element: <Navigate to="/dashboard/product/list" replace />, index: true },
+            { path: 'list', element: <ProductListPageView /> },
           ],
         },
         { path: 'calendar', element: <CalendarPage /> },

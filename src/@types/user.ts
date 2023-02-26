@@ -1,11 +1,15 @@
 // ----------------------------------------------------------------------
 
+import { CustomFile } from 'src/components/upload/types';
+
 export type User = {
   id: string;
   nomeCompleto: string;
+  nome: string;
+  sobrenome: string;
   email: string;
   cargo: string;
-  foto: string;
+  foto: CustomFile | string | null;
   supervisor: string;
   unidade: string;
   isSupervisor: boolean;

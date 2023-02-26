@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 // utils
+import { createUser } from 'src/hooks/user/useUser';
 import { fData } from '../../../utils/formatNumber';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
@@ -29,7 +30,7 @@ import FormProvider, {
 // ----------------------------------------------------------------------
 
 interface FormValuesProps extends Omit<User, 'foto'> {
-  avatarUrl: CustomFile | string | null;
+  foto: CustomFile | string | null;
 }
 
 type Props = {
@@ -43,26 +44,24 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    phoneNumber: Yup.string().required('Phone number is required'),
-    address: Yup.string().required('Address is required'),
-    country: Yup.string().required('Country is required'),
-    company: Yup.string().required('Company is required'),
-    state: Yup.string().required('State is required'),
-    city: Yup.string().required('City is required'),
-    role: Yup.string().required('Role is required'),
-    avatarUrl: Yup.mixed().required('Avatar is required'),
+    nome: Yup.string().required('O nome é obrigatório'),
+    sobrenome: Yup.string().required('O sobrenome é obrigatório'),
+    email: Yup.string().required('O email é obrigatório').email('O email é inválido'),
+    unidade: Yup.string().required('A unidade é obrigatória'),
+    role: Yup.string().required('O cargo é obrigatório'),
+    supervisor: Yup.string().required('O supervisor é obrigatório'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      name: currentUser?.nomeCompleto || '',
+      nomeCompleto: currentUser?.nomeCompleto || '',
       email: currentUser?.email || '',
-      unity: currentUser?.unidade || '',
-      role: currentUser?.cargo || '',
-      // status: currentUser?.status || '',
-      avatar: currentUser?.foto || '',
+      unidade: currentUser?.unidade || '',
+      cargo: currentUser?.cargo || '',
+      status: false,
+      isSupervisor: false,
+      foto: currentUser?.foto || '',
+      senha: '123456',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser]
@@ -94,8 +93,13 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
   }, [isEdit, currentUser]);
 
   const onSubmit = async (data: FormValuesProps) => {
+    const newUser = {
+      ...data,
+      nomeCompleto: `${data.nome} ${data.sobrenome}`,
+    };
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await createUser(newUser);
       reset();
       enqueueSnackbar(!isEdit ? 'Criado com sucesso!' : 'Atualizado com sucesso!');
       navigate(PATH_DASHBOARD.user.list);
@@ -114,7 +118,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
       });
 
       if (file) {
-        setValue('avatarUrl', newFile, { shouldValidate: true });
+        setValue('foto', newFile, { shouldValidate: true });
       }
     },
     [setValue]
@@ -188,15 +192,15 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                   sm: 'repeat(2, 1fr)',
                 }}
               >
-                <RHFTextField name="name" label="Nome" />
-                <RHFTextField name="email" label="Sobrenome" />
+                <RHFTextField name="nome" label="Nome" />
+                <RHFTextField name="sobrenome" label="Sobrenome" />
               </Box>
 
-              <RHFTextField name="phoneNumber" label="E-mail" />
+              <RHFTextField name="email" label="E-mail" />
 
               <Typography variant="overline">Profissional</Typography>
 
-              <RHFSelect native name="country" label="Cargo" placeholder="Cargo">
+              <RHFSelect native name="unidade" label="Unidade" placeholder="Unidade">
                 <option value="" />
                 {filials.map((filial) => (
                   <option key={filial.code} value={filial.label}>
@@ -214,7 +218,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                   sm: 'repeat(2, 1fr)',
                 }}
               >
-                <RHFSelect native name="country" label="Cargo" placeholder="Cargo">
+                <RHFSelect native name="role" label="Cargo" placeholder="Cargo">
                   <option value="" />
                   {countries.map((country) => (
                     <option key={country.code} value={country.label}>
@@ -222,7 +226,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                     </option>
                   ))}
                 </RHFSelect>
-                <RHFSelect native name="country" label="Supervisor" placeholder="Supervisor">
+                <RHFSelect native name="supervisor" label="Supervisor" placeholder="Supervisor">
                   <option value="" />
                   {countries.map((country) => (
                     <option key={country.code} value={country.label}>

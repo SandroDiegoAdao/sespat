@@ -42,6 +42,11 @@ export const UserAccountPage = Loadable(lazy(() => import('../pages/dashboard/Us
 export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/UserCreatePage')));
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));
 
+// DASHBOARD: PRODUCT
+export const ProductListPageView = Loadable(
+  lazy(() => import('../pages/dashboard/ProductListPageView'))
+);
+
 // DASHBOARD: APP
 export const CalendarPage = Loadable(lazy(() => import('../pages/dashboard/CalendarPage')));
 

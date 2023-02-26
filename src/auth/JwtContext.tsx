@@ -94,12 +94,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const tokenDecoded = jwtDecode(accessToken);
 
         const user = {
-          id: tokenDecoded.Id,
-          name: tokenDecoded.Name,
-          email: tokenDecoded.Email,
-          cargo: tokenDecoded.Cargo,
-          supervisorId: tokenDecoded.SupervisorId,
-          unityId: tokenDecoded.UnityId,
+          id: tokenDecoded.id,
+          name: tokenDecoded.name,
+          email: tokenDecoded.email,
+          cargo: tokenDecoded.cargo,
+          supervisorId: tokenDecoded.supervisorId,
+          unityId: tokenDecoded.unityId,
           role: tokenDecoded.role,
         };
 
@@ -150,12 +150,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const tokenDecoded = jwtDecode(token);
 
     const user = {
-      id: tokenDecoded.Id,
-      name: tokenDecoded.Name,
-      email: tokenDecoded.Email,
-      cargo: tokenDecoded.Cargo,
-      supervisorId: tokenDecoded.SupervisorId,
-      unityId: tokenDecoded.UnityId,
+      id: tokenDecoded.id,
+      name: tokenDecoded.name,
+      email: tokenDecoded.email,
+      cargo: tokenDecoded.cargo,
+      supervisorId: tokenDecoded.supervisorId,
+      unityId: tokenDecoded.unityId,
       role: tokenDecoded.role,
     };
 

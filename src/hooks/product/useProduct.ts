@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query';
-import { User } from 'src/@types/user';
+import { Product } from 'src/@types/product';
+import { getAllProducts, create } from 'src/services/ProductService';
 import { queryClient } from 'src/services/queryClient';
-import { getAllUsers, create } from 'src/services/UserService';
 
 // ----------------------------------------------------------------------
 
-export function getUsers() {
-  return useQuery(['users'], () => getAllUsers(), {
+export function getProducts() {
+  return useQuery(['products'], () => getAllProducts(), {
     staleTime: 1000 * 60 * 10,
     retryDelay(failureCount) {
       return Math.min(1000 * 3 ** failureCount, 5000);
@@ -16,13 +16,13 @@ export function getUsers() {
 }
 // ----------------------------------------------------------------------
 
-export async function createUser(user: User) {
+export async function createProduct(product: Product) {
   try {
-    await create(user);
+    await create(product);
   } catch (msg: any) {
     throw new Error(msg);
   }
-  queryClient.refetchQueries(['users']);
+  queryClient.refetchQueries(['products']);
 }
 
 // -----------------------------------------------------------------------------

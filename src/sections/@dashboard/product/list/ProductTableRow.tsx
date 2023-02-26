@@ -1,42 +1,31 @@
 import { useState } from 'react';
 // @mui
-import {
-  Stack,
-  Button,
-  Checkbox,
-  TableRow,
-  MenuItem,
-  TableCell,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { Button, Checkbox, TableRow, MenuItem, TableCell, IconButton } from '@mui/material';
 // @types
-import { User } from '../../../../@types/user';
+import { Product } from 'src/@types/product';
 // components
-import Label from '../../../../components/label';
 import Iconify from '../../../../components/iconify';
 import MenuPopover from '../../../../components/menu-popover';
 import ConfirmDialog from '../../../../components/confirm-dialog';
-import { CustomAvatar } from '../../../../components/custom-avatar';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  row: User;
+  row: Product;
   selected: boolean;
   onEditRow: VoidFunction;
   onSelectRow: VoidFunction;
   onDeleteRow: VoidFunction;
 };
 
-export default function UserTableRow({
+export default function ProductTableRow({
   row,
   selected,
   onEditRow,
   onSelectRow,
   onDeleteRow,
 }: Props) {
-  const { email, nomeCompleto, foto, unidade, cargo, supervisor, isSupervisor, situacao } = row;
+  const { nome, variacoes } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -65,49 +54,10 @@ export default function UserTableRow({
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
 
-        <TableCell>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <CustomAvatar src={foto as any} alt={nomeCompleto} name={nomeCompleto} />
-
-            <Stack>
-              <Typography variant="subtitle2" noWrap>
-                {nomeCompleto}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" noWrap>
-                {email}
-              </Typography>
-            </Stack>
-          </Stack>
-        </TableCell>
-
-        <TableCell align="left">{supervisor || '-'}</TableCell>
+        <TableCell align="left">{nome}</TableCell>
 
         <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {cargo}
-        </TableCell>
-
-        <TableCell align="left">{unidade || '-'}</TableCell>
-
-        <TableCell align="center">
-          <Iconify
-            icon={isSupervisor ? 'eva:checkmark-circle-fill' : 'eva:close-circle-outline'}
-            sx={{
-              width: 20,
-              height: 20,
-              color: 'success.main',
-              ...(!isSupervisor && { color: 'error.main' }),
-            }}
-          />
-        </TableCell>
-
-        <TableCell align="right">
-          <Label
-            variant="soft"
-            color={(situacao === 'inativo' && 'error') || 'success'}
-            sx={{ textTransform: 'capitalize' }}
-          >
-            {situacao || 'ativo'}
-          </Label>
+          {variacoes ? variacoes.map((variacao) => variacao.nome) : '-'}
         </TableCell>
 
         <TableCell align="right">
