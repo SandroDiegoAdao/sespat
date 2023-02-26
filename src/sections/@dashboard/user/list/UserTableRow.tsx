@@ -36,7 +36,8 @@ export default function UserTableRow({
   onSelectRow,
   onDeleteRow,
 }: Props) {
-  const { email, nomeCompleto, foto, unidade, cargo, supervisor, isSupervisor, situacao } = row;
+  const { email, nomeCompleto, foto, unidade, cargo, supervisor, isSupervisor, isAdmin, situacao } =
+    row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -70,9 +71,12 @@ export default function UserTableRow({
             <CustomAvatar src={foto as any} alt={nomeCompleto} name={nomeCompleto} />
 
             <Stack>
-              <Typography variant="subtitle2" noWrap>
-                {nomeCompleto}
-              </Typography>
+              <Stack direction="row" spacing={1}>
+                <Typography variant="subtitle2" noWrap>
+                  {nomeCompleto}
+                </Typography>
+                {isAdmin && <Label color="primary">Admin</Label>}
+              </Stack>
               <Typography variant="body2" color="text.secondary" noWrap>
                 {email}
               </Typography>

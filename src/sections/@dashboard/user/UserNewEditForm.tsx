@@ -17,7 +17,7 @@ import { User } from '../../../@types/user';
 // assets
 import { countries, filials } from '../../../assets/data';
 // components
-// import Label from '../../../components/label';
+import Label from '../../../components/label';
 import { CustomFile } from '../../../components/upload';
 import { useSnackbar } from '../../../components/snackbar';
 import FormProvider, {
@@ -74,13 +74,13 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
   const {
     reset,
-    // watch,
+    watch,
     setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  // const values = watch();
+  const values = watch();
 
   useEffect(() => {
     if (isEdit && currentUser) {
@@ -128,54 +128,70 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
-          <Card sx={{ pt: 10, pb: 5, px: 3 }}>
-            {/* {isEdit && (
+          <Card sx={{ py: 3, px: 3 }}>
+            <Stack spacing={4}>
               <Label
-                color={values.status === 'ativo' ? 'success' : 'error'}
+                color={values.isSupervisor ? 'info' : 'default'}
                 sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
               >
-                {values.status}
+                {values.isSupervisor ? 'Supervisor' : 'Solicitante'}
               </Label>
-            )} */}
 
-            <Box sx={{ mb: 3 }}>
-              <RHFUploadAvatar
-                name="foto"
-                maxSize={3145728}
-                onDrop={handleDrop}
-                helperText={
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      mt: 2,
-                      mx: 'auto',
-                      display: 'block',
-                      textAlign: 'center',
-                      color: 'text.secondary',
-                    }}
-                  >
-                    Permitido *.jpeg, *.jpg, *.png, *.gif
-                    <br /> tamanho máximo de {fData(3145728)}
-                  </Typography>
+              <Box sx={{ pt: 2 }}>
+                <RHFUploadAvatar
+                  name="foto"
+                  maxSize={3145728}
+                  onDrop={handleDrop}
+                  helperText={
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        mt: 2,
+                        mx: 'auto',
+                        display: 'block',
+                        textAlign: 'center',
+                        color: 'text.secondary',
+                      }}
+                    >
+                      Permitido *.jpeg, *.jpg, *.png, *.gif
+                      <br /> tamanho máximo de {fData(3145728)}
+                    </Typography>
+                  }
+                />
+              </Box>
+
+              <RHFSwitch
+                name="isSupervisor"
+                labelPlacement="start"
+                label={
+                  <>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+                      Supervisor
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                      Define o usuário como supervisor.
+                    </Typography>
+                  </>
                 }
+                sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
               />
-            </Box>
 
-            <RHFSwitch
-              name="isVerified"
-              labelPlacement="start"
-              label={
-                <>
-                  <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                    Email Verificado
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    Enviará automaticamente um e-mail de verificação ao usuário.
-                  </Typography>
-                </>
-              }
-              sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-            />
+              <RHFSwitch
+                name="isVerified"
+                labelPlacement="start"
+                label={
+                  <>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+                      Email Verificado
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                      Enviará automaticamente um e-mail de verificação ao usuário.
+                    </Typography>
+                  </>
+                }
+                sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
+              />
+            </Stack>
           </Card>
         </Grid>
 
