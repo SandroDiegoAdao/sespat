@@ -20,7 +20,6 @@ export default function RoleBasedGuard({ hasContent, roles, children }: RoleBase
   // Logic here to get current user role
   const { user } = useAuthContext();
 
-  // const currentRole = 'user';
   const currentRole = user?.role; // admin;
 
   if (typeof roles !== 'undefined' && !roles.includes(currentRole)) {
@@ -34,7 +33,7 @@ export default function RoleBasedGuard({ hasContent, roles, children }: RoleBase
 
         <m.div variants={varBounce().in}>
           <Typography sx={{ color: 'text.secondary' }}>
-            Você não tem permissão para acessar esta página.
+            Você não tem permissão para acessar esta recurso.
           </Typography>
         </m.div>
 

@@ -13,6 +13,7 @@ export type User = {
   supervisor: string;
   unidade: string;
   isSupervisor: boolean;
+  isAdmin: boolean;
   situacao: string;
 };
 

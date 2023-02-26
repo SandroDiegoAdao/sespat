@@ -1,5 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 // auth
+import RoleBasedGuard from 'src/auth/RoleBasedGuard';
 import AuthGuard from '../auth/AuthGuard';
 import GuestGuard from '../auth/GuestGuard';
 // layouts
@@ -114,6 +115,12 @@ export default function Router() {
           path: 'product',
           children: [
             { element: <Navigate to="/dashboard/product/list" replace />, index: true },
+            {
+              path: 'list',
+              element: (
+                <RoleBasedGuard roles={['admin']} children={<ProductListPageView />} hasContent />
+              ),
+            },
             { path: 'list', element: <ProductListPageView /> },
           ],
         },

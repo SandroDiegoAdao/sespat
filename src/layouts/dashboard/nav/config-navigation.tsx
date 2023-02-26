@@ -57,17 +57,27 @@ const navConfig = [
       // INVOICE
       {
         title: 'pedidos',
+        path: PATH_DASHBOARD.invoice.list,
+        icon: ICONS.invoice,
+        roles: ['solicitante'],
+        info: <Label color="info">+20</Label>,
+      },
+      {
+        title: 'pedidos',
         path: PATH_DASHBOARD.invoice.root,
         icon: ICONS.invoice,
+        roles: ['admin', 'supervisor'],
         info: <Label color="info">+20</Label>,
         children: [
           {
             title: 'meus pedidos',
             path: PATH_DASHBOARD.invoice.list,
+            roles: ['admin', 'supervisor'],
           },
           {
             title: 'pedidos de solicitantes',
             path: PATH_DASHBOARD.invoice.requestInvoice,
+            roles: ['admin', 'supervisor'],
           },
         ],
       },
@@ -77,6 +87,7 @@ const navConfig = [
         title: 'produtos',
         path: PATH_DASHBOARD.product.root,
         icon: ICONS.ecommerce,
+        roles: ['admin'],
       },
     ],
   },
