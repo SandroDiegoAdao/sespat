@@ -17,12 +17,12 @@ export default function InvoiceCreatePage() {
   return (
     <>
       <Helmet>
-        <title> Invoices: Create a new invoice | SESPAT</title>
+        <title> Novo Pedido | SESPAT</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Create a new invoice"
+          heading="Novo Pedido"
           links={[
             {
               name: 'Dashboard',

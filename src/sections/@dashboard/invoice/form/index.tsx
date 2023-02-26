@@ -138,7 +138,7 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }: Props) {
           loading={loadingSave && isSubmitting}
           onClick={handleSubmit(handleSaveAsDraft)}
         >
-          Orçamento
+          Gerar Orçamento
         </LoadingButton>
 
         <LoadingButton
@@ -147,7 +147,7 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }: Props) {
           loading={loadingSend && isSubmitting}
           onClick={handleSubmit(handleCreateAndSend)}
         >
-          {isEdit ? 'Atualizar' : 'Criar'}
+          {isEdit ? 'Atualizar' : 'Solicitar'}
         </LoadingButton>
       </Stack>
     </FormProvider>

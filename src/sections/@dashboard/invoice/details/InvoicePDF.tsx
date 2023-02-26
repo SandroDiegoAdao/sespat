@@ -22,7 +22,7 @@ export default function InvoicePDF({ invoice }: Props) {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={[styles.gridContainer, styles.mb40]}>
-          <Image source="/logo/logo_full.jpg" style={{ height: 32 }} />
+          <Image source="/logo/logo.png" style={{ height: 54 }} />
           <View style={{ alignItems: 'flex-end', flexDirection: 'column' }}>
             <Text style={styles.h3}>{status}</Text>
             <Text> {`P-${invoiceNumber}`} </Text>

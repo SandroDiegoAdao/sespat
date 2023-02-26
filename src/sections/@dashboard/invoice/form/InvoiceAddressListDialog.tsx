@@ -9,7 +9,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 // @types
-import { IInvoiceAddress } from '../../../../@types/invoice';
+import { IICenterCost } from '../../../../@types/invoice';
 // components
 import Iconify from '../../../../components/iconify';
 import SearchNotFound from '../../../../components/search-not-found';
@@ -20,8 +20,8 @@ type Props = {
   open: boolean;
   selected: (selectedId: string) => boolean;
   onClose: VoidFunction;
-  onSelect: (address: IInvoiceAddress | null) => void;
-  addressOptions: IInvoiceAddress[];
+  onSelect: (address: IICenterCost | null) => void;
+  addressOptions: IICenterCost[];
 };
 
 export default function InvoiceAddressListDialog({
@@ -41,7 +41,7 @@ export default function InvoiceAddressListDialog({
     setSearchAddress(event.target.value);
   };
 
-  const handleSelectAddress = (address: IInvoiceAddress | null) => {
+  const handleSelectAddress = (address: IICenterCost | null) => {
     onSelect(address);
     setSearchAddress('');
     onClose();
@@ -79,8 +79,8 @@ export default function InvoiceAddressListDialog({
         <Stack sx={{ p: 1.5, pt: 0, maxHeight: 80 * 8, overflowX: 'hidden' }}>
           {dataFiltered.map((address) => (
             <ListItemButton
-              key={address.id}
-              selected={selected(address.id)}
+              key={address.code}
+              selected={selected(address.code)}
               onClick={() => handleSelectAddress(address)}
               sx={{
                 p: 1.5,
@@ -95,7 +95,7 @@ export default function InvoiceAddressListDialog({
                 },
               }}
             >
-              <Typography variant="body2">{address.address}</Typography>
+              <Typography variant="body2">{address.label}</Typography>
             </ListItemButton>
           ))}
         </Stack>
@@ -106,13 +106,10 @@ export default function InvoiceAddressListDialog({
 
 // ----------------------------------------------------------------------
 
-function applyFilter(array: IInvoiceAddress[], query: string) {
+function applyFilter(array: IICenterCost[], query: string) {
   if (query) {
     return array.filter(
-      (address) =>
-        address.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-        address.company.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-        address.address.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      (address) => address.label.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
 

@@ -4,9 +4,11 @@ import { useFormContext } from 'react-hook-form';
 // @mui
 import { Stack, Divider, Typography, Button } from '@mui/material';
 // hooks
+import { useAuthContext } from 'src/auth/useAuthContext';
+import { IICenterCost } from 'src/@types/invoice';
 import useResponsive from '../../../../hooks/useResponsive';
 // _mock
-import { _invoiceAddressTo } from '../../../../_mock/arrays';
+import { _costCenter } from '../../../../_mock/arrays';
 // components
 import Iconify from '../../../../components/iconify';
 //
@@ -15,6 +17,8 @@ import InvoiceAddressListDialog from './InvoiceAddressListDialog';
 // ----------------------------------------------------------------------
 
 export default function InvoiceNewEditAddress() {
+  const { user } = useAuthContext();
+
   const {
     watch,
     setValue,
@@ -25,7 +29,7 @@ export default function InvoiceNewEditAddress() {
 
   const values = watch();
 
-  const { invoiceFrom, invoiceTo } = values;
+  const { costCenter } = values;
 
   const [openTo, setOpenTo] = useState(false);
 
@@ -57,7 +61,7 @@ export default function InvoiceNewEditAddress() {
           </Typography>
         </Stack>
 
-        <AddressInfo name={invoiceFrom.name} email={invoiceFrom.email} />
+        <AddressInfo name={user?.name} email={user?.email} />
       </Stack>
 
       <Stack sx={{ width: 1 }}>
@@ -68,23 +72,23 @@ export default function InvoiceNewEditAddress() {
 
           <Button
             size="small"
-            startIcon={<Iconify icon={invoiceTo ? 'eva:edit-fill' : 'eva:plus-fill'} />}
+            startIcon={<Iconify icon={costCenter ? 'eva:edit-fill' : 'eva:plus-fill'} />}
             onClick={handleOpenTo}
           >
-            {invoiceTo ? 'Alterar' : 'Adicionar'}
+            {costCenter ? 'Alterar' : 'Adicionar'}
           </Button>
 
           <InvoiceAddressListDialog
             open={openTo}
             onClose={handleCloseTo}
-            selected={(selectedId: string) => invoiceTo?.id === selectedId}
-            onSelect={(address) => setValue('invoiceTo', address)}
-            addressOptions={_invoiceAddressTo}
+            selected={(selectedId: string) => costCenter?.code === selectedId}
+            onSelect={(address) => setValue('costCenter', address)}
+            addressOptions={_costCenter}
           />
         </Stack>
 
-        {invoiceTo ? (
-          <AddressInfo name={invoiceTo.name} email={invoiceTo.email} />
+        {costCenter ? (
+          <CenterCostInfo code={costCenter.code} label={costCenter.label} />
         ) : (
           <Typography typography="caption" sx={{ color: 'error.main' }}>
             {(errors.invoiceTo as any)?.message}
@@ -109,4 +113,10 @@ function AddressInfo({ name, email }: AddressInfoProps) {
       <Typography variant="body2">{email}</Typography>
     </>
   );
+}
+
+// ----------------------------------------------------------------------
+
+function CenterCostInfo({ code, label }: IICenterCost) {
+  return <Typography variant="subtitle2">{`${code} - ${label}`}</Typography>;
 }

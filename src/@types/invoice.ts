@@ -1,3 +1,8 @@
+export type IICenterCost = {
+  code: string;
+  label: string;
+};
+
 export type IInvoiceAddress = {
   id: string;
   name: string;
