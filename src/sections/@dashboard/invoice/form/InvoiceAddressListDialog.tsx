@@ -9,10 +9,10 @@ import {
   InputAdornment,
 } from '@mui/material';
 // @types
+import TableNoData from 'src/components/table/TableNoData';
 import { IICenterCost } from '../../../../@types/invoice';
 // components
 import Iconify from '../../../../components/iconify';
-import SearchNotFound from '../../../../components/search-not-found';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +36,10 @@ export default function InvoiceAddressListDialog({
   const dataFiltered = applyFilter(addressOptions, searchAddress);
 
   const isNotFound = !dataFiltered.length && !!searchAddress;
+
+  const isLoading = false;
+
+  const isNotSearch = !isLoading && !dataFiltered.length && searchAddress.length > 0;
 
   const handleSearchAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchAddress(event.target.value);
@@ -74,7 +78,12 @@ export default function InvoiceAddressListDialog({
       </Stack>
 
       {isNotFound ? (
-        <SearchNotFound query={searchAddress} sx={{ px: 3, pt: 5, pb: 10 }} />
+        <TableNoData
+          isNotFound={isNotFound}
+          isNotSearch={isNotSearch}
+          searchQuery={searchAddress}
+          type="pedidos"
+        />
       ) : (
         <Stack sx={{ p: 1.5, pt: 0, maxHeight: 80 * 8, overflowX: 'hidden' }}>
           {dataFiltered.map((address) => (

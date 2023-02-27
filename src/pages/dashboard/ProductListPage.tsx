@@ -43,11 +43,12 @@ const TABLE_HEAD = [
 
 interface ProductListPageProps {
   products: Array<Product>;
+  isLoading: boolean;
 }
 
 // ----------------------------------------------------------------------
 
-export default function ProductListPage({ products }: ProductListPageProps) {
+export default function ProductListPage({ products, isLoading }: ProductListPageProps) {
   const {
     dense,
     page,
@@ -89,7 +90,8 @@ export default function ProductListPage({ products }: ProductListPageProps) {
 
   const isFiltered = filterName !== '';
 
-  const isNotFound = !dataFiltered.length && !!filterName;
+  const isNotFound = !isLoading && !dataFiltered.length && !!filterName;
+  const isNotSearch = !isLoading && !dataFiltered.length && filterName.length > 0;
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -231,7 +233,12 @@ export default function ProductListPage({ products }: ProductListPageProps) {
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   />
 
-                  <TableNoData isNotFound={isNotFound} />
+                  <TableNoData
+                    isNotFound={isNotFound}
+                    isNotSearch={isNotSearch}
+                    searchQuery={filterName}
+                    type="produtos"
+                  />
                 </TableBody>
               </Table>
             </Scrollbar>

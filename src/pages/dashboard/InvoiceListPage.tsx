@@ -61,7 +61,13 @@ const TABLE_HEAD = [
 
 // ----------------------------------------------------------------------
 
-export default function InvoiceListPage() {
+interface InvoiceListPageProps {
+  isLoading?: boolean;
+}
+
+// ----------------------------------------------------------------------
+
+export default function InvoiceListPage({ isLoading }: InvoiceListPageProps) {
   const theme = useTheme();
 
   const { themeStretch } = useSettingsContext();
@@ -122,11 +128,13 @@ export default function InvoiceListPage() {
     (!!filterStartDate && !!filterEndDate);
 
   const isNotFound =
-    (!dataFiltered.length && !!filterName) ||
-    (!dataFiltered.length && !!filterStatus) ||
-    (!dataFiltered.length && !!filterService) ||
-    (!dataFiltered.length && !!filterEndDate) ||
-    (!dataFiltered.length && !!filterStartDate);
+    (!isLoading && !dataFiltered.length && !!filterName) ||
+    (!isLoading && !dataFiltered.length && !!filterStatus) ||
+    (!isLoading && !dataFiltered.length && !!filterService) ||
+    (!isLoading && !dataFiltered.length && !!filterEndDate) ||
+    (!isLoading && !dataFiltered.length && !!filterStartDate);
+
+  const isNotSearch = !isLoading && !dataFiltered.length && filterName.length > 0;
 
   const getLengthByStatus = (status: string) =>
     tableData.filter((item) => item.status === status).length;
@@ -417,7 +425,12 @@ export default function InvoiceListPage() {
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   />
 
-                  <TableNoData isNotFound={isNotFound} />
+                  <TableNoData
+                    isNotFound={isNotFound}
+                    isNotSearch={isNotSearch}
+                    searchQuery={filterName}
+                    type="pedidos"
+                  />
                 </TableBody>
               </Table>
             </Scrollbar>

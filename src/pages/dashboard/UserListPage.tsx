@@ -17,6 +17,7 @@ import {
   TableContainer,
 } from '@mui/material';
 // routes
+import { role } from 'src/_mock/assets';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { User } from '../../@types/user';
@@ -41,20 +42,7 @@ import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/l
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = ['todos', 'ativos', 'inativos'];
-
-const ROLE_OPTIONS = [
-  'todos',
-  'ux designer',
-  'full stack designer',
-  'backend developer',
-  'project manager',
-  'leader',
-  'ui designer',
-  'ui/ux designer',
-  'front end developer',
-  'full stack developer',
-];
+const STATUS_OPTIONS = ['Todos', 'Ativos', 'Inativos'];
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Nome', align: 'left' },
@@ -70,11 +58,12 @@ const TABLE_HEAD = [
 
 interface UserListPageProps {
   users: Array<User>;
+  isLoading: boolean;
 }
 
 // ----------------------------------------------------------------------
 
-export default function UserListPage({ users }: UserListPageProps) {
+export default function UserListPage({ users, isLoading }: UserListPageProps) {
   const {
     dense,
     page,
@@ -102,11 +91,11 @@ export default function UserListPage({ users }: UserListPageProps) {
 
   const [filterName, setFilterName] = useState('');
 
-  const [filterRole, setFilterRole] = useState('todos');
+  const [filterRole, setFilterRole] = useState('Todos');
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
-  const [filterStatus, setFilterStatus] = useState('todos');
+  const [filterStatus, setFilterStatus] = useState('Todos');
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -120,12 +109,14 @@ export default function UserListPage({ users }: UserListPageProps) {
 
   const denseHeight = dense ? 52 : 72;
 
-  const isFiltered = filterName !== '' || filterRole !== 'todos' || filterStatus !== 'todos';
+  const isFiltered = filterName !== '' || filterRole !== 'Todos' || filterStatus !== 'Todos';
 
   const isNotFound =
-    (!dataFiltered.length && !!filterName) ||
-    (!dataFiltered.length && !!filterRole) ||
-    (!dataFiltered.length && !!filterStatus);
+    (!isLoading && !dataFiltered.length && !!filterName) ||
+    (!isLoading && !dataFiltered.length && !!filterRole) ||
+    (!isLoading && !dataFiltered.length && !!filterStatus);
+
+  const isNotSearch = !isLoading && !dataFiltered.length && filterName.length > 0;
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -185,8 +176,8 @@ export default function UserListPage({ users }: UserListPageProps) {
 
   const handleResetFilter = () => {
     setFilterName('');
-    setFilterRole('todos');
-    setFilterStatus('todos');
+    setFilterRole('Todos');
+    setFilterStatus('Todos');
   };
 
   return (
@@ -235,7 +226,7 @@ export default function UserListPage({ users }: UserListPageProps) {
             isFiltered={isFiltered}
             filterName={filterName}
             filterRole={filterRole}
-            optionsRole={ROLE_OPTIONS}
+            optionsRole={role}
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
@@ -297,7 +288,12 @@ export default function UserListPage({ users }: UserListPageProps) {
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   />
 
-                  <TableNoData isNotFound={isNotFound} />
+                  <TableNoData
+                    isNotFound={isNotFound}
+                    isNotSearch={isNotSearch}
+                    searchQuery={filterName}
+                    type="usuários"
+                  />
                 </TableBody>
               </Table>
             </Scrollbar>
@@ -373,11 +369,11 @@ function applyFilter({
     );
   }
 
-  if (filterStatus !== 'todos') {
+  if (filterStatus !== 'Todos') {
     // inputData = inputData.filter((user) => user.status === filterStatus);
   }
 
-  if (filterRole !== 'todos') {
+  if (filterRole !== 'Todos') {
     inputData = inputData.filter((user) => user.cargo === filterRole);
   }
 

@@ -9,7 +9,6 @@ import {
   rating,
   percent,
   country,
-  company,
   boolean,
   sentence,
   lastName,
@@ -29,7 +28,6 @@ const _mock = {
   time: (index: number) => sub(new Date(), { days: index, hours: index }),
   boolean: (index: number) => boolean[index],
   role: (index: number) => role[index],
-  company: (index: number) => company[index],
   address: {
     fullAddress: (index: number) => fullAddress[index],
     country: (index: number) => country[index],

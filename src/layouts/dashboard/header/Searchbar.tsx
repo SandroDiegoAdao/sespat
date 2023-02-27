@@ -166,7 +166,7 @@ function Searchbar() {
               popupIcon={null}
               PopperComponent={StyledPopper}
               onInputChange={(event, value) => setSearchQuery(value)}
-              noOptionsText={<SearchNotFound query={searchQuery} sx={{ py: 10 }} />}
+              noOptionsText={<SearchNotFound searchQuery={searchQuery} sx={{ py: 10 }} />}
               options={allItems.sort((a, b) => -b.group.localeCompare(a.group))}
               groupBy={(option) => option.group}
               getOptionLabel={(option) => `${option.title} ${option.path} ${option.indexKey}`}

@@ -50,14 +50,14 @@ const navConfig = [
       // USER
       {
         title: 'usuários',
-        path: PATH_DASHBOARD.user.list,
+        path: PATH_DASHBOARD.user.root,
         icon: ICONS.user,
       },
 
       // INVOICE
       {
         title: 'pedidos',
-        path: PATH_DASHBOARD.invoice.list,
+        path: PATH_DASHBOARD.invoice.root,
         icon: ICONS.invoice,
         roles: ['solicitante'],
         info: <Label color="info">+20</Label>,

@@ -1,13 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { paramCase } from 'change-case';
-import { useParams } from 'react-router-dom';
+// import { paramCase } from 'change-case';
+// import { useParams } from 'react-router-dom';
 // @mui
 import { Container } from '@mui/material';
 // routes
 import { User } from 'src/@types/user';
 import { PATH_DASHBOARD } from '../../routes/paths';
-// _mock_
-import { _userList } from '../../_mock/arrays';
 // components
 import { useSettingsContext } from '../../components/settings';
 import CustomBreadcrumbs from '../../components/custom-breadcrumbs';
@@ -19,9 +17,9 @@ import UserNewEditForm from '../../sections/@dashboard/user/UserNewEditForm';
 export default function UserEditPage() {
   const { themeStretch } = useSettingsContext();
 
-  const { name } = useParams();
+  // const { name } = useParams();
 
-  const currentUser = _userList.find((user) => paramCase(user.name) === name);
+  // const currentUser = _userList.find((user) => paramCase(user.name) === name);
 
   return (
     <>
@@ -41,7 +39,8 @@ export default function UserEditPage() {
               name: 'Usuários',
               href: PATH_DASHBOARD.user.list,
             },
-            { name: currentUser?.name },
+            // { name: currentUser?.name },
+            { name: 'Fulano' },
           ]}
         />
 

@@ -128,6 +128,10 @@ export default function InvoiceListPage() {
     (!dataFiltered.length && !!filterEndDate) ||
     (!dataFiltered.length && !!filterStartDate);
 
+  const isLoading = false;
+
+  const isNotSearch = !isLoading && !dataFiltered.length && filterName.length > 0;
+
   const getLengthByStatus = (status: string) =>
     tableData.filter((item) => item.status === status).length;
 
@@ -417,7 +421,12 @@ export default function InvoiceListPage() {
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   />
 
-                  <TableNoData isNotFound={isNotFound} />
+                  <TableNoData
+                    isNotFound={isNotFound}
+                    isNotSearch={isNotSearch}
+                    searchQuery={filterName}
+                    type="pedidos"
+                  />
                 </TableBody>
               </Table>
             </Scrollbar>
