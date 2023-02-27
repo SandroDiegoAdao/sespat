@@ -15,16 +15,16 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // @types
 import { User } from '../../../@types/user';
 // assets
-import { countries, filials } from '../../../assets/data';
+import { filials, roles } from '../../../assets/data';
 // components
 import Label from '../../../components/label';
 import { CustomFile } from '../../../components/upload';
 import { useSnackbar } from '../../../components/snackbar';
 import FormProvider, {
-  RHFSelect,
   RHFSwitch,
   RHFTextField,
   RHFUploadAvatar,
+  RHFAutocomplete,
 } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
@@ -38,6 +38,11 @@ type Props = {
   currentUser?: User;
 };
 
+type OptionType = {
+  code: string;
+  label: string;
+};
+
 export default function UserNewEditForm({ isEdit = false, currentUser }: Props) {
   const navigate = useNavigate();
 
@@ -47,8 +52,8 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
     nome: Yup.string().required('O nome é obrigatório'),
     sobrenome: Yup.string().required('O sobrenome é obrigatório'),
     email: Yup.string().required('O email é obrigatório').email('O email é inválido'),
-    unidade: Yup.string().required('A unidade é obrigatória'),
-    role: Yup.string().required('O cargo é obrigatório'),
+    unidade: Yup.object().required('A unidade é obrigatória'),
+    role: Yup.object().required('O cargo é obrigatório'),
     supervisor: Yup.string().required('O supervisor é obrigatório'),
   });
 
@@ -56,8 +61,8 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
     () => ({
       nomeCompleto: currentUser?.nomeCompleto || '',
       email: currentUser?.email || '',
-      unidade: currentUser?.unidade || '',
-      cargo: currentUser?.cargo || '',
+      unidade: currentUser?.unidade,
+      cargo: currentUser?.cargo,
       status: false,
       isSupervisor: false,
       foto: currentUser?.foto || '',
@@ -95,6 +100,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
   const onSubmit = async (data: FormValuesProps) => {
     const newUser = {
       ...data,
+      email: data.email.toLowerCase(),
       nomeCompleto: `${data.nome} ${data.sobrenome}`,
     };
 
@@ -175,22 +181,6 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                 }
                 sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
               />
-
-              <RHFSwitch
-                name="isVerified"
-                labelPlacement="start"
-                label={
-                  <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Email Verificado
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      Enviará automaticamente um e-mail de verificação ao usuário.
-                    </Typography>
-                  </>
-                }
-                sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-              />
             </Stack>
           </Card>
         </Grid>
@@ -216,14 +206,13 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
               <Typography variant="overline">Profissional</Typography>
 
-              <RHFSelect native name="unidade" label="Unidade" placeholder="Unidade">
-                <option value="" />
-                {filials.map((filial) => (
-                  <option key={filial.code} value={filial.label}>
-                    {filial.label}
-                  </option>
-                ))}
-              </RHFSelect>
+              <RHFAutocomplete
+                name="unidade"
+                label="Unidade"
+                options={filials}
+                getOptionLabel={(option: OptionType | string) => (option as OptionType).label}
+                isOptionEqualToValue={(option, value) => option.label === value.label}
+              />
 
               <Box
                 rowGap={3}
@@ -234,22 +223,20 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                   sm: 'repeat(2, 1fr)',
                 }}
               >
-                <RHFSelect native name="role" label="Cargo" placeholder="Cargo">
-                  <option value="" />
-                  {countries.map((country) => (
-                    <option key={country.code} value={country.label}>
-                      {country.label}
-                    </option>
-                  ))}
-                </RHFSelect>
-                <RHFSelect native name="supervisor" label="Supervisor" placeholder="Supervisor">
-                  <option value="" />
-                  {countries.map((country) => (
-                    <option key={country.code} value={country.label}>
-                      {country.label}
-                    </option>
-                  ))}
-                </RHFSelect>
+                <RHFAutocomplete
+                  name="role"
+                  label="Cargo"
+                  options={roles.slice(1)}
+                  getOptionLabel={(option: OptionType | string) => (option as OptionType).label}
+                  isOptionEqualToValue={(option, value) => option.label === value.label}
+                />
+                <RHFAutocomplete
+                  name="supervisor"
+                  label="Supervisor"
+                  options={['John Doe', 'Fulano da Silva', 'Ciclano Souza', 'Beltrano dos Santos']}
+                  getOptionLabel={(option: string) => option}
+                  isOptionEqualToValue={(option, value) => option === value}
+                />
               </Box>
             </Stack>
 

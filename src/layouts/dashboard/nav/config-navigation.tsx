@@ -50,7 +50,7 @@ const navConfig = [
       // USER
       {
         title: 'usuários',
-        path: PATH_DASHBOARD.user.root,
+        path: PATH_DASHBOARD.user.list,
         icon: ICONS.user,
       },
 

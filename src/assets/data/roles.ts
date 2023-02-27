@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------
 
-export const role = [
+export const roles = [
   { code: '0', label: 'Todos' },
   { code: '20007', label: 'Analista Administrativo' },
   { code: '20341', label: 'Analista Comercial' },

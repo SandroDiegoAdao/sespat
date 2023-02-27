@@ -1,8 +1,8 @@
 import { sub } from 'date-fns';
 //
+import { roles } from 'src/assets/data';
 import {
   age,
-  role,
   price,
   title,
   email,
@@ -27,7 +27,7 @@ const _mock = {
   phoneNumber: (index: number) => phoneNumber[index],
   time: (index: number) => sub(new Date(), { days: index, hours: index }),
   boolean: (index: number) => boolean[index],
-  role: (index: number) => role[index],
+  role: (index: number) => roles[index],
   address: {
     fullAddress: (index: number) => fullAddress[index],
     country: (index: number) => country[index],

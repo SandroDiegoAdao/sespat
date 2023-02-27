@@ -17,7 +17,7 @@ import {
   TableContainer,
 } from '@mui/material';
 // routes
-import { role } from 'src/_mock/assets';
+import { roles } from 'src/assets/data';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { User } from '../../@types/user';
@@ -226,7 +226,7 @@ export default function UserListPage({ users, isLoading }: UserListPageProps) {
             isFiltered={isFiltered}
             filterName={filterName}
             filterRole={filterRole}
-            optionsRole={role}
+            optionsRole={roles}
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
