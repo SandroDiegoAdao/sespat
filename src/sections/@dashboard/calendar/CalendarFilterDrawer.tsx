@@ -102,7 +102,7 @@ export default function CalendarFilterDrawer({
           p: (theme) => theme.spacing(2, 2, 1, 2),
         }}
       >
-        Cores
+        Etiquetas
       </Typography>
 
       <ColorMultiPicker

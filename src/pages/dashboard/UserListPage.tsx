@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { paramCase } from 'change-case';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
@@ -46,10 +45,9 @@ const STATUS_OPTIONS = ['Todos', 'Ativos', 'Inativos'];
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Nome', align: 'left' },
-  { id: 'supervisor', label: 'Supervisor Vinc.', align: 'left' },
   { id: 'role', label: 'Cargo', align: 'left' },
   { id: 'unity', label: 'Unidade', align: 'left' },
-  { id: 'isSupervisor', label: 'Supervisor', align: 'center' },
+  { id: 'supervisor', label: 'Supervisor', align: 'left' },
   { id: 'situacao', label: 'Situação', align: 'right' },
   { id: '' },
 ];
@@ -171,7 +169,7 @@ export default function UserListPage({ users, isLoading }: UserListPageProps) {
   };
 
   const handleEditRow = (id: string) => {
-    navigate(PATH_DASHBOARD.user.edit(paramCase(id)));
+    navigate(PATH_DASHBOARD.user.edit(id));
   };
 
   const handleResetFilter = () => {
@@ -279,7 +277,7 @@ export default function UserListPage({ users, isLoading }: UserListPageProps) {
                         selected={selected.includes(row.id)}
                         onSelectRow={() => onSelectRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
-                        onEditRow={() => handleEditRow(row.nomeCompleto)}
+                        onEditRow={() => handleEditRow(row.id)}
                       />
                     ))}
 

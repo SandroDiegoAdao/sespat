@@ -29,8 +29,8 @@ export default function GeneralAppPage() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <AppWelcome
-              title={`Seja bem-vindo! \n ${user?.name}`}
-              description="Acompanhe as requisições de compras e aprovações de pedidos."
+              title={`Bem-vindo, ${user?.name.split(' ')[0]}!`}
+              description="Gerencie suas requisições de forma simples e rápida."
               img={
                 <SeoIllustration
                   sx={{

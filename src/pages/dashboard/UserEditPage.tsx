@@ -1,10 +1,9 @@
 import { Helmet } from 'react-helmet-async';
-// import { paramCase } from 'change-case';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // @mui
 import { Container } from '@mui/material';
 // routes
-import { User } from 'src/@types/user';
+import { getUserById } from 'src/hooks/user/useUser';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
 import { useSettingsContext } from '../../components/settings';
@@ -17,9 +16,13 @@ import UserNewEditForm from '../../sections/@dashboard/user/UserNewEditForm';
 export default function UserEditPage() {
   const { themeStretch } = useSettingsContext();
 
-  // const { name } = useParams();
+  const { id } = useParams();
 
-  // const currentUser = _userList.find((user) => paramCase(user.name) === name);
+  console.log({ id });
+
+  const { data: currentUser } = getUserById(id as string);
+
+  console.log({ currentUser });
 
   return (
     <>
@@ -39,13 +42,10 @@ export default function UserEditPage() {
               name: 'Usuários',
               href: PATH_DASHBOARD.user.list,
             },
-            // { name: currentUser?.name },
-            { name: 'Fulano' },
+            { name: currentUser?.nomeCompleto },
           ]}
         />
-
-        {/* <UserNewEditForm isEdit currentUser={currentUser} /> */}
-        <UserNewEditForm isEdit currentUser={{} as User} />
+        <UserNewEditForm isEdit currentUser={currentUser} />
       </Container>
     </>
   );

@@ -12,7 +12,6 @@ import { PATH_AFTER_LOGIN } from '../config-global';
 import {
   // Auth
   LoginPage,
-  RegisterPage,
   VerifyCodePage,
   NewPasswordPage,
   ResetPasswordPage,
@@ -59,16 +58,7 @@ export default function Router() {
             </GuestGuard>
           ),
         },
-        {
-          path: 'register',
-          element: (
-            <GuestGuard>
-              <RegisterPage />
-            </GuestGuard>
-          ),
-        },
         { path: 'login-unprotected', element: <LoginPage /> },
-        { path: 'register-unprotected', element: <RegisterPage /> },
         {
           element: <CompactLayout />,
           children: [
@@ -97,7 +87,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/user/account" replace />, index: true },
             { path: 'list', element: <UserListPageView /> },
             { path: 'new', element: <UserCreatePage /> },
-            { path: ':name/edit', element: <UserEditPage /> },
+            { path: 'edit/:id', element: <UserEditPage /> },
             { path: 'account', element: <UserAccountPage /> },
           ],
         },

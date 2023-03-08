@@ -38,11 +38,6 @@ type Props = {
   currentUser?: User;
 };
 
-type OptionType = {
-  code: string;
-  label: string;
-};
-
 export default function UserNewEditForm({ isEdit = false, currentUser }: Props) {
   const navigate = useNavigate();
 
@@ -52,19 +47,22 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
     nome: Yup.string().required('O nome é obrigatório'),
     sobrenome: Yup.string().required('O sobrenome é obrigatório'),
     email: Yup.string().required('O email é obrigatório').email('O email é inválido'),
-    unidade: Yup.object().required('A unidade é obrigatória'),
-    role: Yup.object().required('O cargo é obrigatório'),
-    supervisor: Yup.string().required('O supervisor é obrigatório'),
+    unidade: Yup.string().required('A unidade é obrigatória'),
+    cargo: Yup.string().required('O cargo é obrigatório'),
+    // supervisorId: Yup.string().required('O supervisor é obrigatório'),
   });
 
   const defaultValues = useMemo(
     () => ({
       nomeCompleto: currentUser?.nomeCompleto || '',
+      nome: currentUser?.nomeCompleto.split(' ')[0] || '',
+      sobrenome: currentUser?.nomeCompleto.split(' ').slice(1).join(' ') || '',
       email: currentUser?.email || '',
       unidade: currentUser?.unidade,
+      // pegar o primeiro item da lista de filiais
       cargo: currentUser?.cargo,
       status: false,
-      isSupervisor: false,
+      isSupervisor: currentUser?.isSupervisor || false,
       foto: currentUser?.foto || '',
       senha: '123456',
     }),
@@ -98,6 +96,8 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
   }, [isEdit, currentUser]);
 
   const onSubmit = async (data: FormValuesProps) => {
+    console.log('DATA', data);
+
     const newUser = {
       ...data,
       email: data.email.toLowerCase(),
@@ -106,11 +106,11 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
 
     try {
       await createUser(newUser);
-      reset();
       enqueueSnackbar(!isEdit ? 'Criado com sucesso!' : 'Atualizado com sucesso!');
       navigate(PATH_DASHBOARD.user.list);
       console.log('DATA', data);
     } catch (error) {
+      reset();
       console.error(error);
     }
   };
@@ -209,9 +209,9 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
               <RHFAutocomplete
                 name="unidade"
                 label="Unidade"
-                options={filials}
-                getOptionLabel={(option: OptionType | string) => (option as OptionType).label}
-                isOptionEqualToValue={(option, value) => option.label === value.label}
+                options={filials.map((filial) => filial.label)}
+                getOptionLabel={(option: string) => option}
+                isOptionEqualToValue={(option, value) => option === value}
               />
 
               <Box
@@ -224,17 +224,18 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                 }}
               >
                 <RHFAutocomplete
-                  name="role"
+                  name="cargo"
                   label="Cargo"
-                  options={roles.slice(1)}
-                  getOptionLabel={(option: OptionType | string) => (option as OptionType).label}
-                  isOptionEqualToValue={(option, value) => option.label === value.label}
+                  options={roles.slice(1).map((role) => role.label)}
+                  getOptionLabel={(option: string) => option}
+                  isOptionEqualToValue={(option, value) => option === value}
                 />
                 <RHFAutocomplete
+                  // name="supervisorId"
                   name="supervisor"
                   label="Supervisor"
                   options={['John Doe', 'Fulano da Silva', 'Ciclano Souza', 'Beltrano dos Santos']}
-                  getOptionLabel={(option: string) => option}
+                  getOptionLabel={(option) => option}
                   isOptionEqualToValue={(option, value) => option === value}
                 />
               </Box>

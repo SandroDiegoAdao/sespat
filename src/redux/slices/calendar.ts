@@ -1,5 +1,5 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
-import axios from '../../utils/axios';
+import axios from '../../utils/maxios';
 import { ICalendarState, ICalendarEvent } from '../../@types/calendar';
 
 const initialState: ICalendarState = {

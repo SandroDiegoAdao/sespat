@@ -55,7 +55,7 @@ export default function UserAccountPage() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Usuários', href: PATH_DASHBOARD.user.list },
-            { name: 'Conta' },
+            { name: 'Meus Dados' },
           ]}
         />
 

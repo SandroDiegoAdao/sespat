@@ -1,4 +1,3 @@
-import { noCase } from 'change-case';
 import { useState } from 'react';
 // @mui
 import {
@@ -68,15 +67,16 @@ export default function NotificationsPopover() {
       <MenuPopover open={openPopover} onClose={handleClosePopover} sx={{ width: 360, p: 0 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">Notificações</Typography>
 
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              Você possui {totalUnRead}{' '}
+              {totalUnRead > 1 ? 'mensagens não lidas' : 'mensagem não lida'}
             </Typography>
           </Box>
 
           {totalUnRead > 0 && (
-            <Tooltip title=" Mark all as read">
+            <Tooltip title="Marcar todas como lidas">
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
                 <Iconify icon="eva:done-all-fill" />
               </IconButton>
@@ -91,7 +91,7 @@ export default function NotificationsPopover() {
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                New
+                Novas
               </ListSubheader>
             }
           >
@@ -104,7 +104,7 @@ export default function NotificationsPopover() {
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                Before that
+                Antigas
               </ListSubheader>
             }
           >
@@ -118,7 +118,7 @@ export default function NotificationsPopover() {
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
-            View All
+            Ver todas
           </Button>
         </Box>
       </MenuPopover>
@@ -177,7 +177,7 @@ function renderContent(notification: NotificationItemProps) {
     <Typography variant="subtitle2">
       {notification.title}
       <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-        &nbsp; {noCase(notification.description)}
+        &nbsp; {notification.description}
       </Typography>
     </Typography>
   );

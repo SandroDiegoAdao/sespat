@@ -44,7 +44,7 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <ReduxProvider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <LocalizationProvider dateAdapter={AdapterDateFns} locale={brLocale}>
+              <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={brLocale}>
                 <SettingsProvider>
                   <BrowserRouter>
                     <ScrollToTop />

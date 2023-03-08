@@ -2,18 +2,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { User } from 'src/@types/user';
 import { queryClient } from 'src/services/queryClient';
-import { getAllUsers, create } from 'src/services/UserService';
+import { getAllUsers, create, edit, getUserDataById } from 'src/services/UserService';
 
 // ----------------------------------------------------------------------
 
 export function getUsers() {
   return useQuery(['users'], () => getAllUsers(), {
     staleTime: 1000 * 60 * 10,
-    retryDelay(failureCount) {
-      return Math.min(1000 * 3 ** failureCount, 5000);
-    },
+    retry: 0,
   });
 }
+
 // ----------------------------------------------------------------------
 
 export async function createUser(user: User) {
@@ -27,13 +26,21 @@ export async function createUser(user: User) {
 
 // -----------------------------------------------------------------------------
 
-// export async function editUser(user: User) {
-//   return edit(user);
-// }
+export function getUserById(id: string) {
+  return useQuery(['users', id], () => getUserDataById(id), {
+    staleTime: 1000 * 60 * 10,
+  });
+}
 
-// // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
-// export async function refreshUser() {
-//   queryClient.invalidateQueries(['users']);
-//   queryClient.refetchQueries(['users', 1, '']);
-// }
+export async function editUser(user: User) {
+  return edit(user);
+}
+
+// -----------------------------------------------------------------------------
+
+export async function refreshUser() {
+  queryClient.invalidateQueries(['users']);
+  queryClient.refetchQueries(['users', 1, '']);
+}

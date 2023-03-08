@@ -9,9 +9,6 @@ import { queryClient } from 'src/services/queryClient';
 export function getProducts() {
   return useQuery(['products'], () => getAllProducts(), {
     staleTime: 1000 * 60 * 10,
-    retryDelay(failureCount) {
-      return Math.min(1000 * 3 ** failureCount, 5000);
-    },
   });
 }
 // ----------------------------------------------------------------------
@@ -27,13 +24,7 @@ export async function createProduct(product: Product) {
 
 // -----------------------------------------------------------------------------
 
-// export async function editUser(user: User) {
-//   return edit(user);
-// }
-
-// // -----------------------------------------------------------------------------
-
-// export async function refreshUser() {
-//   queryClient.invalidateQueries(['users']);
-//   queryClient.refetchQueries(['users', 1, '']);
-// }
+export async function refreshProducts() {
+  queryClient.invalidateQueries(['products']);
+  queryClient.refetchQueries(['products', 1, '']);
+}

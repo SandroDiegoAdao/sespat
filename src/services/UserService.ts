@@ -11,6 +11,20 @@ export async function getAllUsers() {
 
 // ----------------------------------------------------------------------
 
+export async function getUserDataById(id: string) {
+  const { data } = await axios.get<User>(`api/usuarios/${id}`);
+
+  return data;
+}
+
+// ----------------------------------------------------------------------
+
+export async function edit(user: User) {
+  await axios.put<User>(`api/usuarios/${user.id}`, user);
+}
+
+// ----------------------------------------------------------------------
+
 export async function create(user: User) {
   await axios.post<User>('api/usuarios', user);
 }

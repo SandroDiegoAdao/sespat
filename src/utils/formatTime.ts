@@ -15,6 +15,10 @@ export function fDate(date: InputValue, newFormat?: string) {
     : '';
 }
 
+export function fTime(date: Date | string | number) {
+  return format(new Date(date), 'p');
+}
+
 export function fDateTime(date: InputValue, newFormat?: string) {
   const fm = newFormat || 'dd MMM yyyy p';
 
@@ -29,6 +33,7 @@ export function fToNow(date: InputValue) {
   return date
     ? formatDistanceToNow(new Date(date), {
         addSuffix: true,
+        locale: getCurrentLocale(),
       })
     : '';
 }

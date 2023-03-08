@@ -1,9 +1,18 @@
 import { useState } from 'react';
 // @mui
-import { Button, Checkbox, TableRow, MenuItem, TableCell, IconButton } from '@mui/material';
+import {
+  Button,
+  Checkbox,
+  TableRow,
+  MenuItem,
+  TableCell,
+  IconButton,
+  Typography,
+} from '@mui/material';
 // @types
 import { Product } from 'src/@types/product';
 // components
+import { fDate, fTime } from 'src/utils/formatTime';
 import Iconify from '../../../../components/iconify';
 import MenuPopover from '../../../../components/menu-popover';
 import ConfirmDialog from '../../../../components/confirm-dialog';
@@ -25,7 +34,7 @@ export default function ProductTableRow({
   onSelectRow,
   onDeleteRow,
 }: Props) {
-  const { nome, variacoes } = row;
+  const { nome, variacoes, createdAt = new Date(), updatedAt = new Date() } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -56,8 +65,22 @@ export default function ProductTableRow({
 
         <TableCell align="left">{nome}</TableCell>
 
-        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+        <TableCell align="center" sx={{ textTransform: 'capitalize' }}>
           {variacoes ? variacoes.map((variacao) => variacao.nome) : '-'}
+        </TableCell>
+
+        <TableCell align="left">
+          <Typography variant="body2">{fDate(createdAt)}</Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {fTime(createdAt)}
+          </Typography>
+        </TableCell>
+
+        <TableCell align="left">
+          <Typography variant="body2">{fDate(updatedAt)}</Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {fTime(updatedAt)}
+          </Typography>
         </TableCell>
 
         <TableCell align="right">
@@ -75,6 +98,15 @@ export default function ProductTableRow({
       >
         <MenuItem
           onClick={() => {
+            onEditRow();
+            handleClosePopover();
+          }}
+        >
+          <Iconify icon="eva:edit-fill" />
+          Editar
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             handleOpenConfirm();
             handleClosePopover();
           }}
@@ -82,16 +114,6 @@ export default function ProductTableRow({
         >
           <Iconify icon="eva:trash-2-outline" />
           Deletar
-        </MenuItem>
-
-        <MenuItem
-          onClick={() => {
-            onEditRow();
-            handleClosePopover();
-          }}
-        >
-          <Iconify icon="eva:edit-fill" />
-          Editar
         </MenuItem>
       </MenuPopover>
 

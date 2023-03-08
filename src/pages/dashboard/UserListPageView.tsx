@@ -5,5 +5,5 @@ import UserListPage from './UserListPage';
 export default function UserListPageView() {
   const { data, isLoading } = getUsers();
 
-  return <>{!isLoading && data && <UserListPage users={data} isLoading={isLoading} />}</>;
+  return <>{!isLoading && <UserListPage users={data || []} isLoading={isLoading} />}</>;
 }

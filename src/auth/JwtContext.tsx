@@ -9,7 +9,6 @@ import { ActionMapType, AuthStateType, AuthUserType, JWTContextType } from './ty
 enum Types {
   INITIAL = 'INITIAL',
   LOGIN = 'LOGIN',
-  REGISTER = 'REGISTER',
   LOGOUT = 'LOGOUT',
 }
 
@@ -19,9 +18,6 @@ type Payload = {
     user: AuthUserType;
   };
   [Types.LOGIN]: {
-    user: AuthUserType;
-  };
-  [Types.REGISTER]: {
     user: AuthUserType;
   };
   [Types.LOGOUT]: undefined;
@@ -46,13 +42,6 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
     };
   }
   if (action.type === Types.LOGIN) {
-    return {
-      ...state,
-      isAuthenticated: true,
-      user: action.payload.user,
-    };
-  }
-  if (action.type === Types.REGISTER) {
     return {
       ...state,
       isAuthenticated: true,
@@ -91,17 +80,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const tokenDecoded = jwtDecode(accessToken);
+        const { id } = jwtDecode(accessToken);
 
-        const user = {
-          id: tokenDecoded.id,
-          name: tokenDecoded.name,
-          email: tokenDecoded.email,
-          cargo: tokenDecoded.cargo,
-          supervisorId: tokenDecoded.supervisorId,
-          unityId: tokenDecoded.unityId,
-          role: tokenDecoded.role,
-        };
+        const { data: user } = await axios.get(`/api/usuarios/${id}`);
+
+        user.name = user.nomeCompleto;
+        user.occupation = user.cargo;
 
         dispatch({
           type: Types.INITIAL,
@@ -167,29 +151,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
   }, []);
 
-  // REGISTER
-  const register = useCallback(
-    async (email: string, password: string, firstName: string, lastName: string) => {
-      const response = await axios.post('/api/account/register', {
-        email,
-        password,
-        firstName,
-        lastName,
-      });
-      const { accessToken, user } = response.data;
-
-      localStorage.setItem('accessToken', accessToken);
-
-      dispatch({
-        type: Types.REGISTER,
-        payload: {
-          user,
-        },
-      });
-    },
-    []
-  );
-
   // LOGOUT
   const logout = useCallback(() => {
     setSession(null);
@@ -205,13 +166,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       user: state.user,
       method: 'jwt',
       login,
-      loginWithGoogle: () => {},
-      loginWithGithub: () => {},
-      loginWithTwitter: () => {},
-      register,
       logout,
     }),
-    [state.isAuthenticated, state.isInitialized, state.user, login, logout, register]
+    [state.isAuthenticated, state.isInitialized, state.user, login, logout]
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;

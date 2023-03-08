@@ -8,62 +8,135 @@ import { Box, BoxProps } from '@mui/material';
 function SentIcon({ ...other }: BoxProps) {
   const theme = useTheme();
 
-  const PRIMARY_MAIN = theme.palette.primary.main;
-
-  const PRIMARY_DARK = theme.palette.primary.dark;
+  const PRIMARY_MAIN = theme.palette.primary.light;
 
   return (
     <Box {...other}>
       <svg
         width="100%"
         height="100%"
+        viewBox="0 0 80 80"
         fill="none"
-        viewBox="0 0 96 97"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          fill={PRIMARY_DARK}
-          d="M80.476 16.01c-2-2-48.544 35.833-52.269 43.652 0 0-.155 29.249 5.21 30.093 2.904 0 8.228-15.41 9.35-18.755.143-.428.339-.805.612-1.163 11.697-15.343 39.074-51.85 37.097-53.827z"
-        />
-
-        <path
-          fill={PRIMARY_MAIN}
-          d="M11.167 39.109c-2.51 1.716-2.606 4.943-.319 6.946 3.06 2.68 8.372 7.018 17.359 13.62v-.013c3.724-7.82 50.269-45.652 52.269-43.652 1.977 1.977-25.4 38.484-37.097 53.826-.273.36-.47.736-.613 1.163-1.082 3.227-6.071 17.672-9.03 18.699 6.326-1.22 12.623-6.279 18.458-13.265 7.403 4.887 12.643 8.034 15.829 9.86 2.228 1.279 4.962.804 6.134-1.482 6.764-13.202 14.387-52.323 15.821-72.819.231-3.305-2.447-5.951-5.707-5.355-20.295 3.714-59.214 22.977-73.104 32.472zM33.417 89.755z"
-        />
-
-        <g
-          style={{ mixBlendMode: 'overlay' }}
-          fill="#fff"
-          fillOpacity="0.04"
-          filter="url(#filter0_i_1870_134242)"
-        >
-          <path d="M11.167 39.109c-2.51 1.716-2.606 4.943-.319 6.946 3.06 2.68 8.372 7.018 17.359 13.62v-.013c3.724-7.82 50.269-45.652 52.269-43.652 1.977 1.977-25.4 38.484-37.097 53.826-.273.36-.47.736-.613 1.163-1.082 3.227-6.071 17.672-9.03 18.699 6.326-1.22 12.623-6.279 18.458-13.265 7.403 4.887 12.643 8.034 15.829 9.86 2.228 1.279 4.962.804 6.134-1.482 6.764-13.202 14.387-52.323 15.821-72.819.231-3.305-2.447-5.951-5.707-5.355-20.295 3.714-59.214 22.977-73.104 32.472zM33.417 89.755z" />
+        <g clipPath="url(#clip0_2_104)">
+          <path
+            d="M27.945 5.04601C27.7367 5.04597 27.5305 5.08702 27.3382 5.16681C27.1458 5.24661 26.9711 5.36357 26.824 5.51101L13.909 18.426C7.41941 24.9156 3.77361 33.7174 3.77361 42.895C3.77361 52.0727 7.41941 60.8744 13.909 67.364C20.3986 73.8536 29.2003 77.4994 38.378 77.4994C47.5556 77.4994 56.3574 73.8536 62.847 67.364L75.762 54.448C75.9093 54.3011 76.0261 54.1265 76.1057 53.9343C76.1853 53.7421 76.2262 53.536 76.226 53.328V5.94401C76.226 5.70531 76.1312 5.47639 75.9624 5.30761C75.7936 5.13883 75.5647 5.04401 75.326 5.04401L27.945 5.04601Z"
+            fill={PRIMARY_MAIN}
+          />
+          <path
+            d="M28.615 44.751L28.815 45.104C34.956 41.652 52.997 31.426 56.346 34.573C55.208 31.466 39.307 34.9 28.615 44.751Z"
+            fill="white"
+          />
+          <path
+            d="M28.513 31.03C26.7 37.072 19.3 55.5 15.07 61.342L18.083 62.254L19.659 60.925C23.878 51.385 29.639 34.972 29.971 29.467C29.462 29.182 28.947 29.583 28.513 31.03Z"
+            fill="white"
+          />
+          <path
+            d="M15.07 61.342C19.3 55.5 26.7 37.072 28.513 31.03C30.326 24.988 33.555 37.039 31.743 42.145"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M27.909 45.411C38.592 35.046 55.183 31.4 56.342 34.573C57.03 36.459 42.913 40.832 37.934 46.889"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M44.281 21.43C41.036 20.27 35.689 18.539 32.832 17.741C36.95 15.907 69.787 3.753 72.5 2.5C71.578 6.606 67.576 20.78 65.784 27.433C60.957 25.751 56.056 24.275 52.862 23.24C50.8607 25.8918 49.0505 28.6825 47.445 31.591C46.272 27.731 45.116 23.274 44.281 21.43Z"
+            fill="white"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M44.281 21.43L61.026 10.352"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M52.864 23.24L72.502 2.5"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M47.447 31.591L55.299 24.015"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M48.436 30.173L51.891 24.532L52.864 23.405L54.928 24.015L55.364 23.884L52.009 27.311L49.53 29.581L48.204 30.695L48.436 30.173Z"
+            fill="black"
+          />
+          <path
+            d="M34.013 21.451L23.202 26.58"
+            stroke="white"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M40.905 22.5L34.013 26.862"
+            stroke="white"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M62.293 28.365L58.253 38.215"
+            stroke="white"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M46.09 40.849C49.703 43.274 44.221 49.374 42.408 50.967"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M47.258 43.6C51.4 45.7 48.418 51.364 46.09 54.2"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M49.023 48.9C54.523 53.376 36.467 72.622 35.159 73.683"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M5.177 73.321C7.669 70.98 13.419 62.372 14.7 59.88C28.358 57.763 34.9 69.927 35.159 73.4C32.9025 78.2847 30.3099 83.007 27.4 87.533"
+            fill="black"
+          />
+          <path
+            d="M5.177 73.321C7.669 70.98 13.419 62.372 14.7 59.88C28.358 57.763 34.9 69.927 35.159 73.4C32.9025 78.2847 30.3099 83.007 27.4 87.533"
+            stroke="black"
+            strokeWidth="0.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </g>
-
         <defs>
-          <filter
-            id="filter0_i_1870_134242"
-            width="82.787"
-            height="85.202"
-            x="7.205"
-            y="4.553"
-            colorInterpolationFilters="sRGB"
-            filterUnits="userSpaceOnUse"
-          >
-            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-            <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-            <feColorMatrix
-              in="SourceAlpha"
-              result="hardAlpha"
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            />
-
-            <feOffset dx="-2" dy="-2" />
-            <feGaussianBlur stdDeviation="2" />
-            <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
-            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0" />
-            <feBlend in2="shape" result="effect1_innerShadow_1870_134242" />
-          </filter>
+          <clipPath id="clip0_2_104">
+            <rect width="80" height="80" fill="white" />
+          </clipPath>
         </defs>
       </svg>
     </Box>

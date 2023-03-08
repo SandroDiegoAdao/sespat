@@ -50,11 +50,10 @@ import { InvoiceTableRow, InvoiceTableToolbar } from '../../sections/@dashboard/
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'invoiceNumber', label: 'Solicitante', align: 'left' },
+  { id: 'invoiceNumber', label: 'Nº Pedido', align: 'left' },
   { id: 'createDate', label: 'Dt. Emissão', align: 'left' },
   { id: 'dueDate', label: 'Dt. Vencimento', align: 'left' },
   { id: 'price', label: 'Valor', align: 'center', width: 140 },
-  { id: 'sent', label: 'Aprovado', align: 'center', width: 140 },
   { id: 'status', label: 'Situação', align: 'left' },
   { id: '' },
 ];
@@ -91,7 +90,7 @@ export default function InvoiceListPage({ isLoading }: InvoiceListPageProps) {
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
-  } = useTable({ defaultOrderBy: 'createDate' });
+  } = useTable({ defaultOrderBy: 'invoiceNumber' });
 
   const [tableData, setTableData] = useState(_invoices);
 
@@ -506,9 +505,7 @@ function applyFilter({
 
   if (filterName) {
     inputData = inputData.filter(
-      (invoice) =>
-        invoice.invoiceNumber.toLowerCase().indexOf(filterName.toLowerCase()) !== -1 ||
-        invoice.invoiceTo.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+      (invoice) => invoice.invoiceNumber.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
     );
   }
 

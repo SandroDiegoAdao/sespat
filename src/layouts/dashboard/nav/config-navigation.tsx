@@ -38,14 +38,14 @@ const navConfig = [
   // GENERAL
   // ----------------------------------------------------------------------
   {
-    subheader: 'general',
+    subheader: 'geral',
     items: [{ title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard }],
   },
 
   // MANAGEMENT
   // ----------------------------------------------------------------------
   {
-    subheader: 'management',
+    subheader: 'gerenciamento',
     items: [
       // USER
       {
@@ -56,7 +56,7 @@ const navConfig = [
 
       // INVOICE
       {
-        title: 'pedidos',
+        title: 'meus pedidos',
         path: PATH_DASHBOARD.invoice.root,
         icon: ICONS.invoice,
         roles: ['solicitante'],

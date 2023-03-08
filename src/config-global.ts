@@ -5,6 +5,8 @@ import { PATH_DASHBOARD } from './routes/paths';
 
 export const HOST_API_KEY = process.env.REACT_APP_HOST_API_KEY || '';
 
+export const HOST_API_PROD_KEY = process.env.REACT_APP_HOST_API_PROD_KEY || '';
+
 export const MAP_API = process.env.REACT_APP_MAPBOX_API;
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL

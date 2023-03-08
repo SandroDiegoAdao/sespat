@@ -76,6 +76,8 @@ export default function UserTableRow({
                   {nomeCompleto}
                 </Typography>
                 {isAdmin && <Label color="primary">Admin</Label>}
+                {!isAdmin && isSupervisor && <Label color="info">Supervisor</Label>}
+                {!isAdmin && !isSupervisor && <Label color="default">Solicitante</Label>}
               </Stack>
               <Typography variant="body2" color="text.secondary" noWrap>
                 {email}
@@ -84,25 +86,13 @@ export default function UserTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell align="left">{supervisor || '-'}</TableCell>
-
         <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
           {cargo}
         </TableCell>
 
         <TableCell align="left">{unidade || '-'}</TableCell>
 
-        <TableCell align="center">
-          <Iconify
-            icon={isSupervisor ? 'eva:checkmark-circle-fill' : 'eva:close-circle-outline'}
-            sx={{
-              width: 20,
-              height: 20,
-              color: 'success.main',
-              ...(!isSupervisor && { color: 'error.main' }),
-            }}
-          />
-        </TableCell>
+        <TableCell align="left">{supervisor || '-'}</TableCell>
 
         <TableCell align="right">
           <Label
@@ -129,6 +119,15 @@ export default function UserTableRow({
       >
         <MenuItem
           onClick={() => {
+            onEditRow();
+            handleClosePopover();
+          }}
+        >
+          <Iconify icon="eva:edit-fill" />
+          Editar
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             handleOpenConfirm();
             handleClosePopover();
           }}
@@ -136,16 +135,6 @@ export default function UserTableRow({
         >
           <Iconify icon="eva:trash-2-outline" />
           Deletar
-        </MenuItem>
-
-        <MenuItem
-          onClick={() => {
-            onEditRow();
-            handleClosePopover();
-          }}
-        >
-          <Iconify icon="eva:edit-fill" />
-          Editar
         </MenuItem>
       </MenuPopover>
 

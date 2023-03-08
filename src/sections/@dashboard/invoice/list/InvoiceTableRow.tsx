@@ -2,7 +2,6 @@ import { useState } from 'react';
 // @mui
 import {
   Link,
-  Stack,
   Button,
   Divider,
   Checkbox,
@@ -10,7 +9,6 @@ import {
   MenuItem,
   TableCell,
   IconButton,
-  Typography,
 } from '@mui/material';
 // utils
 import { fDate } from '../../../../utils/formatTime';
@@ -20,7 +18,6 @@ import { IInvoice } from '../../../../@types/invoice';
 // components
 import Label from '../../../../components/label';
 import Iconify from '../../../../components/iconify';
-import { CustomAvatar } from '../../../../components/custom-avatar';
 import MenuPopover from '../../../../components/menu-popover';
 import ConfirmDialog from '../../../../components/confirm-dialog';
 
@@ -43,7 +40,7 @@ export default function InvoiceTableRow({
   onEditRow,
   onDeleteRow,
 }: Props) {
-  const { sent, invoiceNumber, createDate, dueDate, status, invoiceTo, totalPrice } = row;
+  const { invoiceNumber, createDate, dueDate, status, totalPrice } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -73,24 +70,14 @@ export default function InvoiceTableRow({
         </TableCell>
 
         <TableCell>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <CustomAvatar name={invoiceTo.name} />
-
-            <div>
-              <Typography variant="subtitle2" noWrap>
-                {invoiceTo.name}
-              </Typography>
-
-              <Link
-                noWrap
-                variant="body2"
-                onClick={onViewRow}
-                sx={{ color: 'text.disabled', cursor: 'pointer' }}
-              >
-                {`P-${invoiceNumber}`}
-              </Link>
-            </div>
-          </Stack>
+          <Link
+            noWrap
+            variant="body2"
+            onClick={onViewRow}
+            sx={{ color: 'text.primary', cursor: 'pointer' }}
+          >
+            {`P-${invoiceNumber}`}
+          </Link>
         </TableCell>
 
         <TableCell align="left">{fDate(createDate)}</TableCell>
@@ -98,10 +85,6 @@ export default function InvoiceTableRow({
         <TableCell align="left">{fDate(dueDate)}</TableCell>
 
         <TableCell align="center">{fCurrency(totalPrice)}</TableCell>
-
-        <TableCell align="center" sx={{ textTransform: 'capitalize' }}>
-          {sent}
-        </TableCell>
 
         <TableCell align="left">
           <Label

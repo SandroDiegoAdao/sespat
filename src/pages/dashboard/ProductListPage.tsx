@@ -35,7 +35,9 @@ import { PATH_DASHBOARD } from 'src/routes/paths';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Nome', align: 'left' },
-  { id: 'variant', label: 'Variações', align: 'left' },
+  { id: 'variant', label: 'Qtd. variações', align: 'center' },
+  { id: 'createdAt', label: 'Dt. Criação', align: 'left' },
+  { id: 'updatedAt', label: 'Dt. Atualização', align: 'left' },
   { id: '' },
 ];
 
@@ -164,7 +166,7 @@ export default function ProductListPage({ products, isLoading }: ProductListPage
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              Novo Usuário
+              Novo Produto
             </Button>
           }
         />

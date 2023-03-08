@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { Box, Link, BoxProps } from '@mui/material';
@@ -9,7 +8,7 @@ export interface LogoProps extends BoxProps {
   disabledLink?: boolean;
 }
 
-const Logo = forwardRef<HTMLDivElement, LogoProps>(({ disabledLink = false, sx }) => {
+const Logo = ({ disabledLink = false, sx }: LogoProps) => {
   const logo = (
     <Box
       component="img"
@@ -32,6 +31,6 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(({ disabledLink = false, sx }
       {logo}
     </Link>
   );
-});
+};
 
 export default Logo;
