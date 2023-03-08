@@ -20,7 +20,7 @@ export default function RoleBasedGuard({ hasContent, roles, children }: RoleBase
   // Logic here to get current user role
   const { user } = useAuthContext();
 
-  const currentRole = user?.role; // admin;
+  const currentRole = user?.permissao; // admin;
 
   if (typeof roles !== 'undefined' && !roles.includes(currentRole)) {
     return hasContent ? (

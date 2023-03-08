@@ -59,7 +59,6 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
       sobrenome: currentUser?.nomeCompleto.split(' ').slice(1).join(' ') || '',
       email: currentUser?.email || '',
       unidade: currentUser?.unidade,
-      // pegar o primeiro item da lista de filiais
       cargo: currentUser?.cargo,
       status: false,
       isSupervisor: currentUser?.isSupervisor || false,

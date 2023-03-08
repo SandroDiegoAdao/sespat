@@ -86,7 +86,16 @@ export default function Router() {
           children: [
             { element: <Navigate to="/dashboard/user/account" replace />, index: true },
             { path: 'list', element: <UserListPageView /> },
-            { path: 'new', element: <UserCreatePage /> },
+            {
+              path: 'new',
+              element: (
+                <RoleBasedGuard
+                  roles={['admin', 'supervisor']}
+                  children={<UserCreatePage />}
+                  hasContent
+                />
+              ),
+            },
             { path: 'edit/:id', element: <UserEditPage /> },
             { path: 'account', element: <UserAccountPage /> },
           ],

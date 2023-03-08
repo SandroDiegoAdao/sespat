@@ -9,7 +9,8 @@ export type User = {
   sobrenome: string;
   email: string;
   cargo: string;
-  foto: CustomFile | string | null;
+  permissao: string;
+  foto: CustomFile | string | null | undefined;
   supervisor: string;
   unidade: string;
   isSupervisor: boolean;

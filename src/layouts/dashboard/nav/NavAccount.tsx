@@ -27,11 +27,11 @@ export default function NavAccount() {
   return (
     <Link component={RouterLink} to={PATH_DASHBOARD.user.account} underline="none" color="inherit">
       <StyledRoot>
-        <CustomAvatar src={user?.photo} alt={user?.name} name={user?.name} />
+        <CustomAvatar src={user?.foto as any} alt={user?.nomeCompleto} name={user?.nomeCompleto} />
 
         <Box sx={{ ml: 2, minWidth: 0 }}>
           <Typography variant="subtitle2" noWrap>
-            {user?.name}
+            {user?.nomeCompleto}
           </Typography>
 
           <Typography
@@ -39,7 +39,7 @@ export default function NavAccount() {
             noWrap
             sx={{ color: 'text.secondary', textTransform: 'capitalize' }}
           >
-            {user?.role}
+            {user?.permissao}
           </Typography>
         </Box>
       </StyledRoot>

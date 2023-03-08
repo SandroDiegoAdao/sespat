@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
 // utils
+import { User } from 'src/@types/user';
 import axios from '../utils/axios';
 import localStorageAvailable from '../utils/localStorageAvailable';
 //
@@ -30,7 +31,7 @@ type ActionsType = ActionMapType<Payload>[keyof ActionMapType<Payload>];
 const initialState: AuthStateType = {
   isInitialized: false,
   isAuthenticated: false,
-  user: null,
+  user: {} as User,
 };
 
 const reducer = (state: AuthStateType, action: ActionsType) => {
@@ -52,7 +53,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
     return {
       ...state,
       isAuthenticated: false,
-      user: null,
+      user: {} as User,
     };
   }
   return state;
@@ -80,12 +81,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const { id } = jwtDecode(accessToken);
+        const { id, name } = jwtDecode(accessToken);
 
-        const { data: user } = await axios.get(`/api/usuarios/${id}`);
-
-        user.name = user.nomeCompleto;
-        user.occupation = user.cargo;
+        const user = await getUser(id, name);
 
         dispatch({
           type: Types.INITIAL,
@@ -99,7 +97,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           type: Types.INITIAL,
           payload: {
             isAuthenticated: false,
-            user: null,
+            user: {} as User,
           },
         });
       }
@@ -109,7 +107,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         type: Types.INITIAL,
         payload: {
           isAuthenticated: false,
-          user: null,
+          user: {} as User,
         },
       });
     }
@@ -131,17 +129,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const token = response.data;
     setSession(token);
 
-    const tokenDecoded = jwtDecode(token);
+    const { id, name } = jwtDecode(token);
 
-    const user = {
-      id: tokenDecoded.id,
-      name: tokenDecoded.name,
-      email: tokenDecoded.email,
-      cargo: tokenDecoded.cargo,
-      supervisorId: tokenDecoded.supervisorId,
-      unityId: tokenDecoded.unityId,
-      role: tokenDecoded.role,
-    };
+    const user = await getUser(id, name);
 
     dispatch({
       type: Types.LOGIN,
@@ -173,3 +163,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
 }
+
+const getUser = async (id: string, name: string) => {
+  const { data: user } = await axios.get(`/api/usuarios/${id}`);
+
+  let role = 'solicitante';
+  if (user.isAdmin) {
+    role = 'admin';
+  }
+
+  if (!user.isAdmin && user.isSupervisor) {
+    role = 'supervisor';
+  }
+
+  const splittedName = name.split(' ');
+
+  return {
+    ...user,
+    nome: splittedName[0],
+    sobrenome: splittedName.slice(1).join(' '),
+    permissao: role,
+  };
+};
