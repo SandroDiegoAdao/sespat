@@ -9,6 +9,7 @@ import { queryClient } from 'src/services/queryClient';
 export function getProducts() {
   return useQuery(['products'], () => getAllProducts(), {
     staleTime: 1000 * 60 * 10,
+    retry: 0,
   });
 }
 // ----------------------------------------------------------------------

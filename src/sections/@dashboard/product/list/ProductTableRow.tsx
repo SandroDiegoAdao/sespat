@@ -63,7 +63,17 @@ export default function ProductTableRow({
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
 
-        <TableCell align="left">{nome}</TableCell>
+        <TableCell
+          align="left"
+          sx={{
+            maxWidth: '150px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {nome}
+        </TableCell>
 
         <TableCell align="center" sx={{ textTransform: 'capitalize' }}>
           {variacoes ? variacoes.map((variacao) => variacao.nome) : '-'}

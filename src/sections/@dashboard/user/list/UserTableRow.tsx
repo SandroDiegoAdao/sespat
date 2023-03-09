@@ -66,7 +66,13 @@ export default function UserTableRow({
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
 
-        <TableCell>
+        <TableCell
+          sx={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
           <Stack direction="row" alignItems="center" spacing={2}>
             <CustomAvatar src={foto as any} alt={nomeCompleto} name={nomeCompleto} />
 
@@ -75,9 +81,6 @@ export default function UserTableRow({
                 <Typography variant="subtitle2" noWrap>
                   {nomeCompleto}
                 </Typography>
-                {isAdmin && <Label color="primary">Admin</Label>}
-                {!isAdmin && isSupervisor && <Label color="info">Supervisor</Label>}
-                {!isAdmin && !isSupervisor && <Label color="default">Solicitante</Label>}
               </Stack>
               <Typography variant="body2" color="text.secondary" noWrap>
                 {email}
@@ -86,13 +89,48 @@ export default function UserTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+        <TableCell align="left">
+          {isAdmin && <Label color="primary">Admin</Label>}
+          {!isAdmin && isSupervisor && <Label color="info">Supervisor</Label>}
+          {!isAdmin && !isSupervisor && <Label color="default">Solicitante</Label>}
+        </TableCell>
+
+        <TableCell
+          align="left"
+          sx={{
+            textTransform: 'capitalize',
+            maxWidth: '100px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {cargo}
         </TableCell>
 
-        <TableCell align="left">{unidade || '-'}</TableCell>
+        <TableCell
+          align="left"
+          sx={{
+            maxWidth: '100px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {unidade || '-'}
+        </TableCell>
 
-        <TableCell align="left">{supervisor || '-'}</TableCell>
+        <TableCell
+          align="left"
+          sx={{
+            maxWidth: '100px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {supervisor || '-'}
+        </TableCell>
 
         <TableCell align="right">
           <Label

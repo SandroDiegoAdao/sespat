@@ -90,10 +90,10 @@ export default function ProductListPage({ products, isLoading }: ProductListPage
 
   const denseHeight = dense ? 52 : 72;
 
-  const isFiltered = filterName !== '';
+  const isFiltered = filterName.length > 0;
 
-  const isNotFound = !isLoading && !dataFiltered.length && !!filterName;
-  const isNotSearch = !isLoading && !dataFiltered.length && filterName.length > 0;
+  const isNotSearch = !isLoading && !dataFiltered.length && !!isFiltered;
+  const isNotFound = !isLoading && !dataFiltered.length;
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);

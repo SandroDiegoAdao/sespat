@@ -45,6 +45,7 @@ const STATUS_OPTIONS = ['Todos', 'Ativos', 'Inativos'];
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Nome', align: 'left' },
+  { id: 'permission', label: 'Permissão', align: 'left' },
   { id: 'role', label: 'Cargo', align: 'left' },
   { id: 'unity', label: 'Unidade', align: 'left' },
   { id: 'supervisor', label: 'Supervisor', align: 'left' },
