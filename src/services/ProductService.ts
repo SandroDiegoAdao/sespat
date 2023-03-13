@@ -4,7 +4,7 @@ import axios from '../utils/axios';
 // ----------------------------------------------------------------------
 
 export async function getAllProducts() {
-  const { data } = await axios.get<Array<Product>>('produtos');
+  const { data } = await axios.get<Array<Product>>('api/produtos');
 
   return data.slice(2);
 }

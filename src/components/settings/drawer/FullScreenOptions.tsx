@@ -32,8 +32,7 @@ export default function FullScreenOptions() {
         },
       }}
     >
-      {fullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
-
+      {fullscreen ? 'Fechar tela cheia' : 'Tela cheia'}
       <SvgColor
         src={`/assets/icons/setting/${fullscreen ? 'ic_exit_full_screen' : 'ic_full_screen'}.svg`}
       />

@@ -67,7 +67,7 @@ export default function TableSelectedAction({
         {numSelected} {numSelected > 1 ? 'itens selecionados' : 'item selecionado'}
       </Typography>
 
-      {action && action}
+      {action}
     </Stack>
   );
 }

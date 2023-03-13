@@ -5,16 +5,11 @@ import Iconify from '../../../../components/iconify';
 
 // ----------------------------------------------------------------------
 
-type Role = {
-  code: string;
-  label: string;
-};
-
 type Props = {
   filterName: string;
   filterRole: string;
   isFiltered: boolean;
-  optionsRole: Role[];
+  optionsRole: string[];
   onResetFilter: VoidFunction;
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -61,8 +56,8 @@ export default function UserTableToolbar({
       >
         {optionsRole.map((option) => (
           <MenuItem
-            key={option.label}
-            value={option.label}
+            key={option}
+            value={option}
             sx={{
               mx: 1,
               borderRadius: 0.75,
@@ -70,7 +65,7 @@ export default function UserTableToolbar({
               textTransform: 'capitalize',
             }}
           >
-            {option.label}
+            {option}
           </MenuItem>
         ))}
       </TextField>

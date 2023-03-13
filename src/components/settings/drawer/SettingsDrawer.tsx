@@ -85,10 +85,10 @@ export default function SettingsDrawer() {
           sx={{ py: 2, pr: 1, pl: SPACING }}
         >
           <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-            Settings
+            Preferências
           </Typography>
 
-          <Tooltip title="Reset">
+          <Tooltip title="Redefinir">
             <Box sx={{ position: 'relative' }}>
               {notDefault && <BadgeDot />}
               <IconButton onClick={onResetSetting}>
@@ -105,27 +105,27 @@ export default function SettingsDrawer() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Scrollbar sx={{ p: SPACING, pb: 0 }}>
-          <Block title="Mode">
+          <Block title="Tema">
             <ModeOptions />
           </Block>
 
-          <Block title="Contrast">
+          <Block title="Contraste">
             <ContrastOptions />
           </Block>
 
-          <Block title="Direction">
+          <Block title="Direçao">
             <DirectionOptions />
           </Block>
 
-          <Block title="Layout">
+          <Block title="Disposição">
             <LayoutOptions />
           </Block>
 
-          <Block title="Stretch" tooltip="Only available at large resolutions > 1600px (xl)">
+          <Block title="Extensão" tooltip="Disponível apenas para resoluções > 1600px">
             <StretchOptions />
           </Block>
 
-          <Block title="Presets">
+          <Block title="Cor">
             <ColorPresetsOptions />
           </Block>
         </Scrollbar>

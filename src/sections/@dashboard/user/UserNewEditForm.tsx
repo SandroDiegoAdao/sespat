@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
 import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 // utils
-import { createUser } from 'src/hooks/user/useUser';
+import { createUser, refreshUser } from 'src/hooks/user/useUser';
 import { fData } from '../../../utils/formatNumber';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
@@ -95,8 +95,6 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
   }, [isEdit, currentUser]);
 
   const onSubmit = async (data: FormValuesProps) => {
-    console.log('DATA', data);
-
     const newUser = {
       ...data,
       email: data.email.toLowerCase(),
@@ -107,7 +105,6 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
       await createUser(newUser);
       enqueueSnackbar(!isEdit ? 'Criado com sucesso!' : 'Atualizado com sucesso!');
       navigate(PATH_DASHBOARD.user.list);
-      console.log('DATA', data);
     } catch (error) {
       reset();
       console.error(error);
@@ -225,7 +222,7 @@ export default function UserNewEditForm({ isEdit = false, currentUser }: Props) 
                 <RHFAutocomplete
                   name="cargo"
                   label="Cargo"
-                  options={roles.slice(1).map((role) => role.label)}
+                  options={roles.map((role) => role)}
                   getOptionLabel={(option: string) => option}
                   isOptionEqualToValue={(option, value) => option === value}
                 />

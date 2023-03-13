@@ -12,6 +12,7 @@ export type User = {
   permissao: string;
   foto: CustomFile | string | null | undefined;
   supervisor: string;
+  supervisorId: number;
   unidade: string;
   isSupervisor: boolean;
   isAdmin: boolean;

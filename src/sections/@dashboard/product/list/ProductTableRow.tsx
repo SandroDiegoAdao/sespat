@@ -34,7 +34,7 @@ export default function ProductTableRow({
   onSelectRow,
   onDeleteRow,
 }: Props) {
-  const { nome, variacoes, createdAt = new Date(), updatedAt = new Date() } = row;
+  const { nome, variacoes, qtdVariacoes, createdAt = new Date(), updatedAt = new Date() } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -76,8 +76,12 @@ export default function ProductTableRow({
         </TableCell>
 
         <TableCell align="center" sx={{ textTransform: 'capitalize' }}>
-          {variacoes ? variacoes.map((variacao) => variacao.nome) : '-'}
+          {qtdVariacoes || '-'}
         </TableCell>
+
+        {/* <TableCell align="center" sx={{ textTransform: 'capitalize' }}>
+          {variacoes ? variacoes.map((variacao) => variacao.nome) : '-'}
+        </TableCell> */}
 
         <TableCell align="left">
           <Typography variant="body2">{fDate(createdAt)}</Typography>

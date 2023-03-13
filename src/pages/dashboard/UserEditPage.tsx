@@ -18,11 +18,7 @@ export default function UserEditPage() {
 
   const { id } = useParams();
 
-  console.log({ id });
-
   const { data: currentUser } = getUserById(id as string);
-
-  console.log({ currentUser });
 
   return (
     <>

@@ -35,7 +35,7 @@ import { PATH_DASHBOARD } from 'src/routes/paths';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Nome', align: 'left' },
-  { id: 'variant', label: 'Qtd. variações', align: 'center' },
+  { id: 'qtdVariant', label: 'Qtd. Variações', align: 'center' },
   { id: 'createdAt', label: 'Dt. Criação', align: 'left' },
   { id: 'updatedAt', label: 'Dt. Atualização', align: 'left' },
   { id: '' },
